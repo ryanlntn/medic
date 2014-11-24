@@ -6,4 +6,8 @@ describe "Medic" do
   it ".available?" do
     Medic.available?.should == true
   end
+
+  it ".is_available?" do
+    Medic.is_available?.should == true
+  end
 end
