@@ -3,11 +3,23 @@ describe "Medic" do
     @medic = Medic.new
   end
 
-  it ".available?" do
-    Medic.available?.should == true
+  describe ".available?" do
+    it "determines if HealthKit is available" do
+      Medic.available?.should == true
+    end
+
+    it "has an .is_available? alias" do
+      Medic.is_available?.should == true
+    end
   end
 
-  it ".is_available?" do
-    Medic.is_available?.should == true
+  describe "#authorize" do
+
   end
+
+  describe "#authorized?" do
+
+  end
+
+
 end

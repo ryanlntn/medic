@@ -3,7 +3,7 @@ class AppDelegate
   attr_reader :health_store
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    @health_store = HKHealthStore.new
+    @health_store = Medic::Store.new
     $hs = @health_store
 
     @window ||= UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)

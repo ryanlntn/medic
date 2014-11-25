@@ -1,9 +1,12 @@
-class Medic
+module Medic
 
   def self.available?
-    HKHealthStore.isHealthDataAvailable
+    Store.available?
   end
-  self.singleton_class.send(:alias_method, :is_available?, :available?)
+
+  def self.is_available?
+    Store.available?
+  end
 
 end
 
