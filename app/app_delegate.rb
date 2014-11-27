@@ -4,10 +4,10 @@ class AppDelegate
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     @health_store = Medic::Store.new
-    $hs = @health_store
+    controller = DataController.new
 
     @window ||= UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.rootViewController = AuthController.new
+    @window.rootViewController = UINavigationController.alloc.initWithRootViewController(controller)
     @window.makeKeyAndVisible
 
     true

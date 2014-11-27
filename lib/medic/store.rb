@@ -25,22 +25,35 @@ module Medic
     alias_method :is_authorized?, :authorized?
     alias_method :is_authorized_for?, :authorized?
 
-    # def biological_sex(error)
-    # end
+    def biological_sex
+      error = Pointer.new(:object)
+      sex = biologicalSexWithError error
+      if block_given?
+        yield sex.biologicalSex, error[0]
+      else
+        sex.biologicalSex # currently returns integer; consider inverting hash to return key instead
+      end
+    end
 
-    # def blood_type(error)
-    # end
+    def blood_type
+      error = Pointer.new(:object)
+      blood = bloodTypeWithError error
+      if block_given?
+        yield blood.bloodType, error[0]
+      else
+        blood.bloodType # currently returns integer; consider inverting hash to return key instead
+      end
+    end
 
-    # def date_of_birth
-    #   # error = Pointer.new(:object)
-    #   # dob = dateOfBirthWithError error
-    #   # if block_given?
-    #   #   yield dob, error[0]
-    #   # else
-    #   #   dob
-    #   # end
-    # end
-
+    def date_of_birth
+      error = Pointer.new(:object)
+      birthday = dateOfBirthWithError error
+      if block_given?
+        yield birthday, error[0]
+      else
+        birthday
+      end
+    end
 
     # deleteObject:withCompletion:
     # saveObject:withCompletion:
