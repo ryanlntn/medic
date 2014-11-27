@@ -10,12 +10,14 @@ class AuthController < UIViewController
     if Medic.available?
 
       types = {
-        write: [ :step_count ],
+        share: [ :step_count ],
         read: [ :step_count, :distance_cycling, :distance_walking_running, :date_of_birth ]
       }
 
       medic.authorize types do |success, error|
-        add_steps if success
+        medic.enable_background_delivery :step_count, :hourly do |success, error|
+          NSLog "This worked!"
+        end
       end
 
     end
@@ -24,7 +26,7 @@ class AuthController < UIViewController
   def add_steps
     if medic.authorized_for? :step_count
       alert = UIAlertView.new
-      alert.message = "Steps works!"
+      alert.message = "Steps work!"
       alert.show
     else
       alert = UIAlertView.new

@@ -1,6 +1,6 @@
 # medic
 
-TODO: Write a gem description
+A RubyMotion wrapper for HealthKit
 
 ## Installation
 
