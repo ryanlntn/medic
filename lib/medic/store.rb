@@ -13,9 +13,9 @@ module Medic
       share = types[:share] ? types[:share].map{ |sym| object_type(sym) } : []
       read = types[:read] ? types[:read].map{ |sym| object_type(sym) } : []
 
-      requestAuthorizationToShareTypes NSSet.setWithArray(share), readTypes: NSSet.setWithArray(read), completion: ->(success, error){
+      requestAuthorizationToShareTypes(NSSet.setWithArray(share), readTypes: NSSet.setWithArray(read), completion: ->(success, error){
         block.call(success, error)
-      }
+      })
     end
 
     def authorized?(sym)
