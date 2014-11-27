@@ -5,9 +5,6 @@ class AuthController < BaseController
 
     self.view.backgroundColor = UIColor.redColor
     self.title = "Auth"
-
-    right_button = UIBarButtonItem.alloc.initWithTitle("Data", style: UIBarButtonItemStyleBordered, target: self, action: :open_data)
-    self.navigationItem.rightBarButtonItem = right_button
   end
 
   def viewDidAppear(animated)
@@ -26,10 +23,6 @@ class AuthController < BaseController
         NSLog "This worked!"
       end
     end
-  end
-
-  def open_data
-    self.navigationController.pushViewController(DataController.new, animated: true)
   end
 
 end
