@@ -62,7 +62,7 @@ module Medic
     end
 
     def save(*hk_objects, &block)
-      saveObjects(hk_objects, withCompletion: ->(success, error){
+      saveObjects(hk_objects.flatten, withCompletion: ->(success, error){
         block.call
       })
     end
