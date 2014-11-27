@@ -31,7 +31,7 @@ module Medic
       if block_given?
         yield sex.biologicalSex, error[0]
       else
-        sex.biologicalSex # currently returns integer; consider inverting hash to return key instead
+        sex.biologicalSex # TODO: consider inverting hash to return key instead of int
       end
     end
 
@@ -41,7 +41,7 @@ module Medic
       if block_given?
         yield blood.bloodType, error[0]
       else
-        blood.bloodType # currently returns integer; consider inverting hash to return key instead
+        blood.bloodType # TODO: consider inverting hash to return key instead of int
       end
     end
 
@@ -55,9 +55,17 @@ module Medic
       end
     end
 
-    # deleteObject:withCompletion:
-    # saveObject:withCompletion:
-    # saveObjects:withCompletion:
+    def delete(hk_object, &block)
+      deleteObject(hk_object, withCompletion: ->(success, error){
+        block.call
+      })
+    end
+
+    def save(*hk_objects, &block)
+      saveObjects(hk_objects, withCompletion: ->(success, error){
+        block.call
+      })
+    end
 
     # addSamples:toWorkout:completion:
 
