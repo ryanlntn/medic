@@ -52,14 +52,25 @@ module Medic
     # stopQuery:
 
     def enable_background_delivery(type, frequency, &block)
-      enableBackgroundDeliveryForType object_type(type), frequency: update_frequency(frequency), withCompletion: ->(success, error){
+      enableBackgroundDeliveryForType(object_type(type), frequency: update_frequency(frequency), withCompletion: ->(success, error){
         block.call(success, error)
-      }
+      })
     end
+    alias_method :enable_background_delivery_for, :enable_background_delivery
 
-    # enableBackgroundDeliveryForType:frequency:withCompletion:
-    # disableBackgroundDeliveryForType:withCompletion:
-    # disableAllBackgroundDeliveryWithCompletion:
+    def disable_background_delivery(type, &block)
+      return disable_all_background_delivery(block) if type == :all
+      disableBackgroundDeliveryForType(object_type(type), withCompletion: ->(success, error){
+        block.call(success, error)
+      })
+    end
+    alias_method :disable_background_delivery_for, :disable_background_delivery
+
+    def disable_all_background_delivery(&block)
+      disableBackgroundDeliveryForTypeWithCompletion(->(success, error){
+        block.call(success, error)
+      })
+    end
 
   end
 end
