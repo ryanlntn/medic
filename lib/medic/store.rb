@@ -2,7 +2,7 @@ module Medic
   class Store < HKHealthStore
 
     include Medic::Types
-    include Medic::Constants
+    include Medic::HKConstants
 
     def self.available?
       isHealthDataAvailable

@@ -1,5 +1,5 @@
 module Medic
-  module Constants
+  module HKConstants
 
     def error_code(sym)
       {
