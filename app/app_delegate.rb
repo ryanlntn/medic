@@ -1,6 +1,5 @@
 class AppDelegate
-  attr_accessor :window
-  attr_reader :health_store
+  attr_reader :window, :health_store
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     @health_store = Medic::Store.new

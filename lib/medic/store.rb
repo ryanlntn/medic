@@ -31,7 +31,7 @@ module Medic
       if block_given?
         yield sex.biologicalSex, error[0]
       else
-        sex.biologicalSex # TODO: consider inverting hash to return key instead of int
+        BIOLOGICAL_SEXES.invert[sex.biologicalSex]
       end
     end
 
@@ -41,7 +41,7 @@ module Medic
       if block_given?
         yield blood.bloodType, error[0]
       else
-        blood.bloodType # TODO: consider inverting hash to return key instead of int
+        BLOOD_TYPES.invert[blood.bloodType]
       end
     end
 
