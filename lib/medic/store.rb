@@ -57,13 +57,13 @@ module Medic
 
     def delete(hk_object, &block)
       deleteObject(hk_object, withCompletion: ->(success, error){
-        block.call
+        block.call(success, error)
       })
     end
 
     def save(*hk_objects, &block)
       saveObjects(hk_objects.flatten, withCompletion: ->(success, error){
-        block.call
+        block.call(success, error)
       })
     end
 
