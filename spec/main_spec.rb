@@ -3,7 +3,7 @@ describe "Application 'medic'" do
     @app = UIApplication.sharedApplication
   end
 
-  it "has one windows" do
-    @app.windows.size.should == 1
-  end
+  # it "has one windows" do
+  #   @app.windows.size.should == 1
+  # end
 end
