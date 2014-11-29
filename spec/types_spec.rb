@@ -6,11 +6,17 @@ describe "Medic::Types" do
   end
 
   describe "#object_type" do
-
+    it "returns the correct object type for symbol" do
+      @subject.object_type(:step_count).should.be.kind_of? HKQuantityType
+      @subject.object_type(:food).should.be.kind_of? HKCorrelationType
+      @subject.object_type(:blood_type).should.be.kind_of? HKCharacteristicType
+      @subject.object_type(:sleep_analysis).should.be.kind_of? HKCategoryType
+      @subject.object_type(:workout).should.be.kind_of? HKWorkoutType
+    end
   end
 
   describe "#type_identifier" do
-    it "returns the correct type identifier" do
+    it "returns the correct type identifier for symbol" do
       @subject.type_identifier(:body_mass_index).should == HKQuantityTypeIdentifierBodyMassIndex
       @subject.type_identifier(:body_fat_percentage).should == HKQuantityTypeIdentifierBodyFatPercentage
       @subject.type_identifier(:height).should == HKQuantityTypeIdentifierHeight
