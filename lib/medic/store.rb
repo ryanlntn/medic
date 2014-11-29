@@ -29,7 +29,7 @@ module Medic
       error = Pointer.new(:object)
       sex = biologicalSexWithError error
       if block_given?
-        yield sex.biologicalSex, error[0]
+        yield BIOLOGICAL_SEXES.invert[sex.biologicalSex], error[0]
       else
         BIOLOGICAL_SEXES.invert[sex.biologicalSex]
       end
@@ -39,7 +39,7 @@ module Medic
       error = Pointer.new(:object)
       blood = bloodTypeWithError error
       if block_given?
-        yield blood.bloodType, error[0]
+        yield BLOOD_TYPES.invert[blood.bloodType], error[0]
       else
         BLOOD_TYPES.invert[blood.bloodType]
       end
