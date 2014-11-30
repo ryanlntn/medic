@@ -1,6 +1,8 @@
 describe "Medic" do
+
   before do
-    @medic = Medic.new
+    @subject = Object.new
+    @subject.extend(Medic)
   end
 
   describe ".available?" do
@@ -12,14 +14,5 @@ describe "Medic" do
       Medic.is_available?.should == true
     end
   end
-
-  describe "#authorize" do
-
-  end
-
-  describe "#authorized?" do
-
-  end
-
 
 end
