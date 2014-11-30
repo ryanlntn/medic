@@ -67,6 +67,7 @@ module Medic
       })
     end
 
+    # TODO: workout support
     # addSamples:toWorkout:completion:
 
     alias_method :execute_query, :executeQuery

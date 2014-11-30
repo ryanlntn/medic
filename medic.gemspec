@@ -1,11 +1,9 @@
 # -*- encoding: utf-8 -*-
 require File.expand_path('../lib/medic/version', __FILE__)
 
-VERSION = "0.0.1"
-
 Gem::Specification.new do |spec|
   spec.name          = "medic"
-  spec.version       = VERSION
+  spec.version       = Medic::VERSION
   spec.authors       = ["Ryan Linton"]
   spec.email         = ["ryanl@clearsightstudio.com"]
   spec.description   = %q{RubyMotion Wrapper for HealthKit}
@@ -20,4 +18,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "motion-stump"
 end
