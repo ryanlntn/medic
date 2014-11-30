@@ -24,6 +24,20 @@ describe "Medic::Store" do
       end
       @subject.authorized?(:step_count).should == false
     end
+
+    it "has an #is_authorized? alias" do
+      @subject.method(:is_authorized?).should == @subject.method(:authorized?)
+    end
+
+    it "has an #authorized_for? alias" do
+      @subject.method(:authorized_for?).should == @subject.method(:authorized?)
+    end
+
+    it "has an #is_authorized_for? alias" do
+      @subject.method(:is_authorized_for?).should == @subject.method(:authorized?)
+    end
   end
+
+  # describe
 
 end
