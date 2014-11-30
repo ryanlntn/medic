@@ -38,6 +38,34 @@ describe "Medic::Store" do
     end
   end
 
-  # describe
+  describe "#biological_sex" do
+    it "calls biologicalSexWithError with correct args" do
+      @subject.mock! 'biologicalSexWithError' do |error|
+        error.should.be.kind_of? Pointer
+        mock(:biologicalSex, return: HKBiologicalSexFemale)
+      end
+      @subject.biological_sex.should == :female
+    end
+  end
+
+  describe "#blood_type" do
+    it "calls bloodTypeWithError with correct args" do
+      @subject.mock! 'bloodTypeWithError' do |error|
+        error.should.be.kind_of? Pointer
+        mock(:bloodType, return: HKBloodTypeONegative)
+      end
+      @subject.blood_type.should == :o_negative
+    end
+  end
+
+  describe "#date_of_birth" do
+    it "calls dateOfBirthWithError with correct args" do
+      @subject.mock! 'dateOfBirthWithError' do |error|
+        error.should.be.kind_of? Pointer
+        true
+      end
+      @subject.date_of_birth.should == true
+    end
+  end
 
 end
