@@ -104,4 +104,18 @@ describe "Medic::Store" do
     end
   end
 
+  describe "#stop" do
+    it "calls stopQuery with correct args" do
+      @subject.mock! 'stopQuery' do |query|
+        query.should.be.kind_of? HKQuery
+      end
+      query = HKSampleQuery.alloc.initWithSampleType(@subject.object_type(:step_count), predicate:nil, limit:HKObjectQueryNoLimit, sortDescriptors:nil, resultsHandler:->(q,r,e){})
+      @subject.stop(query)
+    end
+
+    it "has an stop_query alias" do
+      @subject.method(:stop_query).should == @subject.method(:stop)
+    end
+  end
+
 end
