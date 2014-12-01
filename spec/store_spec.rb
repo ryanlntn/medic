@@ -133,4 +133,18 @@ describe "Medic::Store" do
     end
   end
 
+  describe "#disable_background_delivery" do
+    it "calls #disableBackgroundDeliveryForType:withCompletion with correct args" do
+      @subject.mock! 'disableBackgroundDeliveryForType:withCompletion' do |type, comp|
+        type.should.be.kind_of? HKObjectType
+        comp.should.respond_to? :call
+      end
+      @subject.disable_background_delivery(:step_count){|success, error|}
+    end
+
+    it "has a #disable_background_delivery_for alias" do
+      @subject.method(:disable_background_delivery_for).should == @subject.method(:disable_background_delivery)
+    end
+  end
+
 end
