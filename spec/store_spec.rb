@@ -5,7 +5,7 @@ describe "Medic::Store" do
   end
 
   describe "#authorize" do
-    it "calls requestAuthorizationToShareTypes:readTypes:completion with correct args" do
+    it "calls #requestAuthorizationToShareTypes:readTypes:completion with correct args" do
       @subject.mock! 'requestAuthorizationToShareTypes:readTypes:completion' do |share, read, comp|
         share.should.be.kind_of? NSSet
         read.should.be.kind_of? NSSet
@@ -17,7 +17,7 @@ describe "Medic::Store" do
   end
 
   describe "#authorized?" do
-    it "calls authorizationStatusForType with correct args" do
+    it "calls #authorizationStatusForType with correct args" do
       @subject.mock! 'authorizationStatusForType' do |type|
         type.should.be.kind_of? HKObjectType
         false
@@ -39,7 +39,7 @@ describe "Medic::Store" do
   end
 
   describe "#biological_sex" do
-    it "calls biologicalSexWithError with correct args" do
+    it "calls #biologicalSexWithError with correct args" do
       @subject.mock! 'biologicalSexWithError' do |error|
         error.should.be.kind_of? Pointer
         mock(:biologicalSex, return: HKBiologicalSexFemale)
@@ -49,7 +49,7 @@ describe "Medic::Store" do
   end
 
   describe "#blood_type" do
-    it "calls bloodTypeWithError with correct args" do
+    it "calls #bloodTypeWithError with correct args" do
       @subject.mock! 'bloodTypeWithError' do |error|
         error.should.be.kind_of? Pointer
         mock(:bloodType, return: HKBloodTypeONegative)
@@ -59,7 +59,7 @@ describe "Medic::Store" do
   end
 
   describe "#date_of_birth" do
-    it "calls dateOfBirthWithError with correct args" do
+    it "calls #dateOfBirthWithError with correct args" do
       @subject.mock! 'dateOfBirthWithError' do |error|
         error.should.be.kind_of? Pointer
         true
@@ -69,7 +69,7 @@ describe "Medic::Store" do
   end
 
   describe "#save" do
-    it "calls saveObject:withCompletion with correct args" do
+    it "calls #saveObject:withCompletion with correct args" do
       @subject.mock! 'saveObjects:withCompletion' do |object, comp|
         object.first.should.be.kind_of? HKObjectType
         comp.should.respond_to? :call
@@ -80,7 +80,7 @@ describe "Medic::Store" do
   end
 
   describe "#delete" do
-    it "calls deleteObject:withCompletion with correct args" do
+    it "calls #deleteObject:withCompletion with correct args" do
       @subject.mock! 'deleteObject:withCompletion' do |object, comp|
         object.should.be.kind_of? HKObjectType
         comp.should.respond_to? :call
@@ -91,7 +91,7 @@ describe "Medic::Store" do
   end
 
   describe "#execute" do
-    it "calls executeQuery with correct args" do
+    it "calls #executeQuery with correct args" do
       @subject.mock! 'executeQuery' do |query|
         query.should.be.kind_of? HKQuery
       end
@@ -99,13 +99,13 @@ describe "Medic::Store" do
       @subject.execute(query)
     end
 
-    it "has an execute_query alias" do
+    it "has an #execute_query alias" do
       @subject.method(:execute_query).should == @subject.method(:execute)
     end
   end
 
   describe "#stop" do
-    it "calls stopQuery with correct args" do
+    it "calls #stopQuery with correct args" do
       @subject.mock! 'stopQuery' do |query|
         query.should.be.kind_of? HKQuery
       end
@@ -113,8 +113,23 @@ describe "Medic::Store" do
       @subject.stop(query)
     end
 
-    it "has an stop_query alias" do
+    it "has an #stop_query alias" do
       @subject.method(:stop_query).should == @subject.method(:stop)
+    end
+  end
+
+  describe "#enable_background_delivery" do
+    it "calls #enableBackgroundDeliveryForType with correct args" do
+      @subject.mock! 'enableBackgroundDeliveryForType:frequency:withCompletion' do |type, freq, comp|
+        type.should.be.kind_of? HKObjectType
+        freq.should == HKUpdateFrequencyWeekly
+        comp.should.respond_to? :call
+      end
+      @subject.enable_background_delivery(:step_count, :weekly){|success, error|}
+    end
+
+    it "has an #enable_background_delivery_for alias" do
+      @subject.method(:enable_background_delivery_for).should == @subject.method(:enable_background_delivery)
     end
   end
 
