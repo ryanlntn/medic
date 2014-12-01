@@ -18,7 +18,7 @@ module Medic
     end
     singleton_class.send(:alias_method, :is_available?, :available?)
 
-    def authorize(types, &block)
+    def authorize(types, block=Proc.new)
       share = Array(types[:share]).map{ |sym| object_type(sym) }
       read  = Array(types[:read]).map{ |sym| object_type(sym) }
 
@@ -64,14 +64,14 @@ module Medic
       end
     end
 
-    def delete(hk_object, &block)
+    def delete(hk_object, block=Proc.new)
       deleteObject(hk_object, withCompletion: ->(success, error){
         block.call(success, error)
       })
     end
 
-    def save(*hk_objects, &block)
-      saveObjects(hk_objects.flatten, withCompletion: ->(success, error){
+    def save(hk_objects, block=Proc.new)
+      saveObjects(Array(hk_objects), withCompletion: ->(success, error){
         block.call(success, error)
       })
     end
@@ -89,14 +89,14 @@ module Medic
     end
     alias_method :stop_query, :stop
 
-    def enable_background_delivery(type, frequency, &block)
+    def enable_background_delivery(type, frequency, block=Proc.new)
       enableBackgroundDeliveryForType(object_type(type), frequency: update_frequency(frequency), withCompletion: ->(success, error){
         block.call(success, error)
       })
     end
     alias_method :enable_background_delivery_for, :enable_background_delivery
 
-    def disable_background_delivery(type, &block)
+    def disable_background_delivery(type, block=Proc.new)
       return disable_all_background_delivery(block) if type == :all
       disableBackgroundDeliveryForType(object_type(type), withCompletion: ->(success, error){
         block.call(success, error)
@@ -104,7 +104,7 @@ module Medic
     end
     alias_method :disable_background_delivery_for, :disable_background_delivery
 
-    def disable_all_background_delivery(&block)
+    def disable_all_background_delivery(block=Proc.new)
       disableAllBackgroundDeliveryWithCompletion(->(success, error){
         block.call(success, error)
       })
