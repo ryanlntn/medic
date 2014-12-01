@@ -147,4 +147,13 @@ describe "Medic::Store" do
     end
   end
 
+  describe "#disable_all_background_delivery" do
+    it "calls #disableAllBackgroundDeliveryWithCompletion with correct args" do
+      @subject.mock! 'disableAllBackgroundDeliveryWithCompletion' do |comp|
+        comp.should.respond_to? :call
+      end
+      @subject.disable_all_background_delivery{|success, error|}
+    end
+  end
+
 end

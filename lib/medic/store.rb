@@ -96,7 +96,7 @@ module Medic
     alias_method :disable_background_delivery_for, :disable_background_delivery
 
     def disable_all_background_delivery(&block)
-      disableBackgroundDeliveryForTypeWithCompletion(->(success, error){
+      disableAllBackgroundDeliveryWithCompletion(->(success, error){
         block.call(success, error)
       })
     end
