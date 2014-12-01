@@ -90,4 +90,18 @@ describe "Medic::Store" do
     end
   end
 
+  describe "#execute" do
+    it "calls executeQuery with correct args" do
+      @subject.mock! 'executeQuery' do |query|
+        query.should.be.kind_of? HKQuery
+      end
+      query = HKSampleQuery.alloc.initWithSampleType(@subject.object_type(:step_count), predicate:nil, limit:HKObjectQueryNoLimit, sortDescriptors:nil, resultsHandler:->(q,r,e){})
+      @subject.execute(query)
+    end
+
+    it "has an execute_query alias" do
+      @subject.method(:execute_query).should == @subject.method(:execute)
+    end
+  end
+
 end

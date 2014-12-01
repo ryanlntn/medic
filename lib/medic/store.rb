@@ -70,8 +70,15 @@ module Medic
     # TODO: workout support
     # addSamples:toWorkout:completion:
 
-    alias_method :execute_query, :executeQuery
-    alias_method :stop_query, :stopQuery
+    def execute(query)
+      executeQuery(query)
+    end
+    alias_method :execute_query, :execute
+
+    def stop(query)
+      stopQuery(query)
+    end
+    alias_method :stop_query, :stop
 
     def enable_background_delivery(type, frequency, &block)
       enableBackgroundDeliveryForType(object_type(type), frequency: update_frequency(frequency), withCompletion: ->(success, error){
