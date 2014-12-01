@@ -68,4 +68,26 @@ describe "Medic::Store" do
     end
   end
 
+  describe "#save" do
+    it "calls saveObject:withCompletion with correct args" do
+      @subject.mock! 'saveObjects:withCompletion' do |object, comp|
+        object.first.should.be.kind_of? HKObjectType
+        comp.should.respond_to? :call
+      end
+      steps = @subject.object_type(:step_count)
+      @subject.save(steps){|success, error|}
+    end
+  end
+
+  describe "#delete" do
+    it "calls deleteObject:withCompletion with correct args" do
+      @subject.mock! 'deleteObject:withCompletion' do |object, comp|
+        object.should.be.kind_of? HKObjectType
+        comp.should.respond_to? :call
+      end
+      steps = @subject.object_type(:step_count)
+      @subject.delete(steps){|success, error|}
+    end
+  end
+
 end
