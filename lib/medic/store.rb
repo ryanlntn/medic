@@ -4,14 +4,23 @@ module Medic
     include Medic::Types
     include Medic::HKConstants
 
+    def self.shared
+      Dispatch.once { @store ||= new }
+      @store
+    end
+
+    def self.unload
+      @store = nil
+    end
+
     def self.available?
       isHealthDataAvailable
     end
     singleton_class.send(:alias_method, :is_available?, :available?)
 
     def authorize(types, &block)
-      share = types[:share] ? types[:share].map{ |sym| object_type(sym) } : []
-      read = types[:read] ? types[:read].map{ |sym| object_type(sym) } : []
+      share = Array(types[:share]).map{ |sym| object_type(sym) }
+      read  = Array(types[:read]).map{ |sym| object_type(sym) }
 
       requestAuthorizationToShareTypes(NSSet.setWithArray(share), readTypes: NSSet.setWithArray(read), completion: ->(success, error){
         block.call(success, error)

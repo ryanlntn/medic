@@ -5,4 +5,6 @@ describe "Medic::Query" do
     @subject.extend(Medic::Query)
   end
 
+
+
 end

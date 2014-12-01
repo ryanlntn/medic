@@ -1,12 +1,11 @@
 module Medic
+  class << self
 
-  def self.available?
-    Store.available?
+    def available?
+      Medic::Store.available?
+    end
+    alias_method :is_available?, :available?
+
   end
-
-  def self.is_available?
-    Store.available?
-  end
-
 end
 

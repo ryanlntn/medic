@@ -12,7 +12,7 @@ describe "Medic::Store" do
         comp.should.respond_to? :call
         true
       end
-      @subject.authorize(read: [:step_count]){|success, error|}.should == true
+      @subject.authorize(read: :step_count){|success, error|}.should == true
     end
   end
 
