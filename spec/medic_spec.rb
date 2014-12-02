@@ -45,4 +45,25 @@ describe "Medic" do
     end
   end
 
+  describe ".biological_sex" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'biological_sex' { true }
+      Medic.biological_sex.should == true
+    end
+  end
+
+  describe ".blood_type" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'blood_type' { true }
+      Medic.blood_type.should == true
+    end
+  end
+
+  describe ".date_of_birth" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'date_of_birth' { true }
+      Medic.date_of_birth.should == true
+    end
+  end
+
 end

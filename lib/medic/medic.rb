@@ -17,6 +17,18 @@ module Medic
     alias_method :is_authorized?, :authorized?
     alias_method :is_authorized_for?, :authorized?
 
+    def biological_sex
+      Medic::Store.shared.biological_sex
+    end
+
+    def blood_type
+      Medic::Store.shared.blood_type
+    end
+
+    def date_of_birth
+      Medic::Store.shared.date_of_birth
+    end
+
   end
 end
 
