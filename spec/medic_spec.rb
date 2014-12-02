@@ -112,4 +112,42 @@ describe "Medic" do
     end
   end
 
+  describe ".enable_background_delivery" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'enable_background_delivery' do |type, freq, block|
+        type.should == :type
+        freq.should == :freq
+        block.should.respond_to? :call
+      end
+      Medic.enable_background_delivery(:type, :freq){|success, error|}
+    end
+
+    it "has a .enable_background_delivery_for alias" do
+      Medic.method(:enable_background_delivery_for).should == Medic.method(:enable_background_delivery)
+    end
+  end
+
+  describe ".disable_background_delivery" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'disable_background_delivery' do |type, block|
+        type.should == :type
+        block.should.respond_to? :call
+      end
+      Medic.disable_background_delivery(:type){|success, error|}
+    end
+
+    it "has a .disable_background_delivery_for alias" do
+      Medic.method(:disable_background_delivery_for).should == Medic.method(:disable_background_delivery)
+    end
+  end
+
+  describe ".disable_all_background_delivery" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'disable_all_background_delivery' do |block|
+        block.should.respond_to? :call
+      end
+      Medic.disable_all_background_delivery{|success, error|}
+    end
+  end
+
 end

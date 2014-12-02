@@ -50,6 +50,20 @@ module Medic
     end
     alias_method :stop_query, :stop
 
+    def enable_background_delivery(type, frequency, block=Proc.new)
+      Medic::Store.shared.enable_background_delivery(type, frequency, block)
+    end
+    alias_method :enable_background_delivery_for, :enable_background_delivery
+
+    def disable_background_delivery(type, block=Proc.new)
+      Medic::Store.shared.disable_background_delivery(type, block)
+    end
+    alias_method :disable_background_delivery_for, :disable_background_delivery
+
+    def disable_all_background_delivery(block=Proc.new)
+      Medic::Store.shared.disable_all_background_delivery(block)
+    end
+
   end
 end
 
