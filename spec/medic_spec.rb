@@ -86,4 +86,22 @@ describe "Medic" do
     end
   end
 
+  describe ".execute" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'execute' do |query|
+        query.should == :query
+      end
+      Medic.execute(:query)
+    end
+  end
+
+  describe ".stop" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'stop' do |query|
+        query.should == :query
+      end
+      Medic.stop(:query)
+    end
+  end
+
 end

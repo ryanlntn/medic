@@ -37,6 +37,16 @@ module Medic
       Medic::Store.shared.save(hk_objects, block)
     end
 
+    def execute(query)
+      Medic::Store.shared.execute(query)
+    end
+    alias_method :execute_query, :execute
+
+    def stop(query)
+      Medic::Store.shared.stop(query)
+    end
+    alias_method :stop_query, :stop
+
   end
 end
 
