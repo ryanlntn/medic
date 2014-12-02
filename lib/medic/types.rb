@@ -76,23 +76,23 @@ module Medic
       workout: HKWorkoutTypeIdentifier
     }
 
-    def object_type(sym)
-      case sym
+    def object_type(type)
+      case type
       when :workout
         HKObjectType.workoutType
       when :sleep_analysis
-        HKObjectType.categoryTypeForIdentifier type_identifier(sym)
+        HKObjectType.categoryTypeForIdentifier type_identifier(type)
       when :biological_sex, :blood_type, :date_of_birth
-        HKObjectType.characteristicTypeForIdentifier type_identifier(sym)
+        HKObjectType.characteristicTypeForIdentifier type_identifier(type)
       when :blood_pressure, :food
-        HKObjectType.correlationTypeForIdentifier type_identifier(sym)
+        HKObjectType.correlationTypeForIdentifier type_identifier(type)
       else
-        HKObjectType.quantityTypeForIdentifier type_identifier(sym)
+        HKObjectType.quantityTypeForIdentifier type_identifier(type)
       end
     end
 
-    def type_identifier(sym)
-      TYPE_IDENTIFIERS[sym]
+    def type_identifier(type)
+      type.is_a?(Symbol) ? TYPE_IDENTIFIERS[type] : type
     end
 
   end

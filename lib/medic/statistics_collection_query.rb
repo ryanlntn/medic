@@ -36,8 +36,8 @@ module Medic
       options
     end
 
-    def statistics_option(sym)
-      STATISTICS_OPTIONS[sym]
+    def statistics_option(option)
+      option.is_a?(Symbol) ? STATISTICS_OPTIONS[option] : option
     end
 
   end

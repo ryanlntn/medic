@@ -48,28 +48,28 @@ module Medic
       asleep: HKCategoryValueSleepAnalysisAsleep
     }
 
-    def error_code(sym)
-      ERROR_CODES[sym]
+    def error_code(error)
+      error.is_a?(Symbol) ? ERROR_CODES[error] : error
     end
 
-    def update_frequency(sym)
-      UPDATE_FREQUENCIES[sym]
+    def update_frequency(freq)
+      freq.is_a?(Symbol) ? UPDATE_FREQUENCIES[freq] : freq
     end
 
-    def authorization_status(sym)
-      AUTHORIZATION_STATUSES[sym]
+    def authorization_status(auth_status)
+      auth_status.is_a?(Symbol) ? AUTHORIZATION_STATUSES[auth_status] : auth_status
     end
 
-    def biological_sex(sym)
-      BIOLOGICAL_SEXES[sym]
+    def biological_sex(sex)
+      sex.is_a?(Symbol) ? BIOLOGICAL_SEXES[sex] : sex
     end
 
-    def blood_type(sym)
-      BLOOD_TYPES[sym]
+    def blood_type(blood)
+      blood.is_a?(Symbol) ? BLOOD_TYPES[blood] : blood
     end
 
-    def sleep_analysis(sym)
-      SLEEP_ANALYSES[sym]
+    def sleep_analysis(sleep)
+      sleep.is_a?(Symbol) ? SLEEP_ANALYSES[sleep] : sleep
     end
 
   end
