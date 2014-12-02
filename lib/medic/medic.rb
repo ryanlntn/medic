@@ -29,6 +29,14 @@ module Medic
       Medic::Store.shared.date_of_birth
     end
 
+    def delete(hk_object, block=Proc.new)
+      Medic::Store.shared.delete(hk_object, block)
+    end
+
+    def save(hk_objects, block=Proc.new)
+      Medic::Store.shared.save(hk_objects, block)
+    end
+
   end
 end
 

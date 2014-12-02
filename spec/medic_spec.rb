@@ -66,4 +66,24 @@ describe "Medic" do
     end
   end
 
+  describe ".delete" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'delete' do |hk_object, block|
+        hk_object.should == :hk_object
+        block.should.respond_to? :call
+      end
+      Medic.delete(:hk_object){|success, error|}
+    end
+  end
+
+  describe ".save" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'save' do |hk_objects, block|
+        hk_objects.should == :hk_objects
+        block.should.respond_to? :call
+      end
+      Medic.save(:hk_objects){|success, error|}
+    end
+  end
+
 end
