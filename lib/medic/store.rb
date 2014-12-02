@@ -69,12 +69,15 @@ module Medic
         block.call(success, error)
       })
     end
+    alias_method :delete_object, :delete
 
     def save(hk_objects, block=Proc.new)
       saveObjects(Array(hk_objects), withCompletion: ->(success, error){
         block.call(success, error)
       })
     end
+    alias_method :save_object, :save
+    alias_method :save_objects, :save
 
     # TODO: workout support
     # addSamples:toWorkout:completion:

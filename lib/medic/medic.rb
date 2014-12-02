@@ -32,10 +32,13 @@ module Medic
     def delete(hk_object, block=Proc.new)
       Medic::Store.shared.delete(hk_object, block)
     end
+    alias_method :delete_object, :delete
 
     def save(hk_objects, block=Proc.new)
       Medic::Store.shared.save(hk_objects, block)
     end
+    alias_method :save_object, :save
+    alias_method :save_objects, :save
 
     def execute(query)
       Medic::Store.shared.execute(query)

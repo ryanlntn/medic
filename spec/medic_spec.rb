@@ -93,6 +93,10 @@ describe "Medic" do
       end
       Medic.execute(:query)
     end
+
+    it "has an .execute_query alias" do
+      Medic.method(:execute_query).should == Medic.method(:execute)
+    end
   end
 
   describe ".stop" do
@@ -101,6 +105,10 @@ describe "Medic" do
         query.should == :query
       end
       Medic.stop(:query)
+    end
+
+    it "has an .stop_query alias" do
+      Medic.method(:stop_query).should == Medic.method(:stop)
     end
   end
 
