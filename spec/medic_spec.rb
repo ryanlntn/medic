@@ -24,4 +24,25 @@ describe "Medic" do
     end
   end
 
+  describe ".authorized?" do
+    it "delegates to Medic::Store" do
+      @store.stub! 'authorized?' do |sym|
+        sym.should.be.kind_of? Symbol
+      end
+      Medic.authorized? :step_count
+    end
+
+    it "has an .is_authorized? alias" do
+      Medic.method(:is_authorized?).should == Medic.method(:authorized?)
+    end
+
+    it "has an .authorized_for? alias" do
+      Medic.method(:authorized_for?).should == Medic.method(:authorized?)
+    end
+
+    it "has an .is_authorized_for? alias" do
+      Medic.method(:is_authorized_for?).should == Medic.method(:authorized?)
+    end
+  end
+
 end
