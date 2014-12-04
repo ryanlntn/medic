@@ -27,9 +27,16 @@ module Medic
     end
 
     alias_method :initial_results_handler, :initialResultsHandler
-    alias_method :initial_results_handler=, :initialResultsHandler=
+
+    def initial_results_handler=(callback=Proc.new)
+      self.initialResultsHandler = callback
+    end
+
     alias_method :statistics_update_handler, :statisticsUpdateHandler
-    alias_method :statistics_update_handler=, :statisticsUpdateHandler=
+
+    def statistics_update_handler=(callback=Proc.new)
+      self.statisticsUpdateHandler = callback
+    end
 
     alias_method :anchor_date, :anchorDate
     alias_method :interval_components, :intervalComponents
