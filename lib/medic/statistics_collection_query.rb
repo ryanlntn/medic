@@ -21,10 +21,18 @@ module Medic
       type = object_type(args[:type])
       predicate = args[:predicate]
       options = options_for_stat_query(args[:options])
-      anchor = args[:anchor_date] || args[:date] || args[:anchor] || NSDate.date
+      anchor = args[:anchor_date] || args[:anchor] || args[:date] || NSDate.date
       interval = args[:interval_components] || args[:interval]
       initWithQuantityType(type, quantitySamplePredicate: predicate, options: options, anchorDate: anchor, intervalComponents: interval)
     end
+
+    alias_method :initial_results_handler, :initialResultsHandler
+    alias_method :initial_results_handler=, :initialResultsHandler=
+    alias_method :statistics_update_handler, :statisticsUpdateHandler
+    alias_method :statistics_update_handler=, :statisticsUpdateHandler=
+
+    alias_method :anchor_date, :anchorDate
+    alias_method :interval_components, :intervalComponents
 
   private
 
