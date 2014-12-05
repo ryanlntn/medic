@@ -8,7 +8,12 @@ class MenuController < BaseController
     @table = UITableView.alloc.initWithFrame(self.view.bounds)
     @table.dataSource = self
     @table.delegate = self
-    @data = ['Auth', 'Data']
+    @data = [
+      'Auth',
+      'Data',
+      'StatisticsCollectionQuery',
+      'StatisticsQuery'
+    ]
 
     self.view.addSubview @table
   end

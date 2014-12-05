@@ -15,11 +15,11 @@ class AuthController < BaseController
         read: [ :date_of_birth, :biological_sex, :blood_type ]
       }
 
-      medic.authorize types do |success, error|
+      Medic.authorize types do |success, error|
         NSLog "Authorized!"
       end
 
-      medic.enable_background_delivery :step_count, :hourly do |success, error|
+      Medic.enable_background_delivery :step_count, :hourly do |success, error|
         NSLog "This worked!"
       end
     end
