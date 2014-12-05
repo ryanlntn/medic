@@ -38,7 +38,9 @@ module Medic
       self.statisticsUpdateHandler = callback
     end
 
+    alias_method :anchor, :anchorDate
     alias_method :anchor_date, :anchorDate
+    alias_method :interval, :intervalComponents
     alias_method :interval_components, :intervalComponents
 
   private
