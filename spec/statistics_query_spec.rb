@@ -9,13 +9,4 @@ describe "Medic::StatisticsQuery" do
     @subject.should.be.kind_of? HKStatisticsQuery
   end
 
-  # it "passes the correct args" do
-  #   @subject.mock! 'initWithQuantityType:quantitySamplePredicate:options:completionHandler' do |type, predicate, options, comp|
-  #     type.should.be.kind_of? HKQuantityType
-  #     predicate.should.be.kind_of? NSPredicate
-  #     options.should.be.kind_of? HKStatisticsOptions
-  #     comp.should.respond_to? :call
-  #   end
-  # end
-
 end

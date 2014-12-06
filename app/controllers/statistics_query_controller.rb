@@ -9,13 +9,10 @@ class StatisticsQueryController < BaseController
 
   def viewDidAppear(animated)
     query = Medic::StatisticsQuery.new type: :step_count, options: :sum do |query, result, error|
-      if result
-        NSLog result.startDate.to_s
-        NSLog result.quantityType.to_s
-        NSLog result.averageQuantity.to_s
-        NSLog result.maximumQuantity.to_s
-        NSLog result.minimumQuantity.to_s
-        NSLog result.sumQuantity.to_s
+      if quantity = result.sumQuantity
+        NSLog quantity.doubleValueForUnit(HKUnit.countUnit).to_s
+      else
+        NSLog "no quantity"
       end
     end
 
