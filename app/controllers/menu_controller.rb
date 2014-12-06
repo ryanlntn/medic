@@ -9,8 +9,8 @@ class MenuController < BaseController
     @table.dataSource = self
     @table.delegate = self
     @data = [
-      'Auth',
-      'Data',
+      'Authorize',
+      'Characteristics',
       'StatisticsCollectionQuery',
       'StatisticsQuery'
     ]

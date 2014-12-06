@@ -1,10 +1,10 @@
-class DataController < BaseController
+class CharacteristicsController < BaseController
 
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.purpleColor
-    self.title = "Data"
+    self.view.backgroundColor = UIColor.orangeColor
+    self.title = "Characteristics"
   end
 
   def viewDidAppear(animated)

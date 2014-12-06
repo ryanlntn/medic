@@ -10,7 +10,7 @@ class StatisticsCollectionQueryController < BaseController
   def viewDidAppear(animated)
     interval = NSDateComponents.new.setDay(1)
 
-    query = Medic::StatisticsCollectionQuery.new(type: :step_count, options: :sum, anchor: yesterday, interval: interval)
+    query = Medic::StatisticsCollectionQuery.new(type: :step_count, options: :sum, anchor: one_week_ago, interval: interval)
 
     query.initial_results_handler = ->(query, results, error){
       NSLog("An error occurred calculating statistics: #{error.localizedDescription}") if error
@@ -27,7 +27,7 @@ class StatisticsCollectionQueryController < BaseController
 
   def handle(results)
     today = NSDate.date
-    results.enumerateStatisticsFromDate(yesterday, toDate: today, withBlock: ->(result, stop_refreshing) {
+    results.enumerateStatisticsFromDate(one_week_ago, toDate: today, withBlock: ->(result, stop_refreshing) {
       if quantity = result.sumQuantity
         NSLog quantity.doubleValueForUnit(HKUnit.countUnit).to_s
       else
@@ -36,8 +36,8 @@ class StatisticsCollectionQueryController < BaseController
     })
   end
 
-  def yesterday
-    components = NSDateComponents.new.setDay(-1)
+  def one_week_ago
+    components = NSDateComponents.new.setDay(-7)
     NSCalendar.currentCalendar.dateByAddingComponents(components, toDate: NSDate.date, options: 0)
   end
 

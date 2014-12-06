@@ -4,7 +4,7 @@ class StatisticsQueryController < BaseController
     super
 
     self.view.backgroundColor = UIColor.greenColor
-    self.title = "Query"
+    self.title = "StatisticsQuery"
   end
 
   def viewDidAppear(animated)
