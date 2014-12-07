@@ -7,7 +7,7 @@ module Medic
     def initialize(args={}, block=Proc.new)
       type = object_type(args[:type])
       predicate = args[:predicate]
-      limit = args[:limit] || 0 # no limit
+      limit = args[:limit] || HKObjectQueryNoLimit
       sort = sort_descriptors(args[:sort_descriptors]) if args[:sort_descriptors]
       sort ||= sort_descriptors(args[:sort_by]) if args[:sort_by]
       sort ||= sort_descriptors(args[:sort]) if args[:sort]

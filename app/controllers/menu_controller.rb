@@ -11,6 +11,7 @@ class MenuController < BaseController
     @data = [
       'Authorize',
       'Characteristics',
+      'AnchoredObjectQuery',
       'CorrelationQuery',
       'ObserverQuery',
       'SampleQuery',
