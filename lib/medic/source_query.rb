@@ -5,7 +5,7 @@ module Medic
 
     def initialize(args={}, block=Proc.new)
       type = object_type(args[:type])
-      predicate = args[:predicate]
+      predicate = args[:sample_predicate] || args[:predicate]
       initWithSampleType(type, samplePredicate: predicate, completionHandler: block)
     end
 
