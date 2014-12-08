@@ -16,9 +16,7 @@ class ObserverQueryController < BaseController
   end
 
   def get_steps
-    interval = NSDateComponents.new.setDay(1)
-
-    query = Medic::StatisticsCollectionQuery.new(type: :step_count, options: :sum, anchor: one_day_ago, interval: interval)
+    query = Medic::StatisticsCollectionQuery.new(type: :step_count, options: :sum, anchor: one_day_ago, interval: :day)
 
     query.initial_results_handler = ->(query, results, error){
       NSLog("An error occurred calculating statistics: #{error.localizedDescription}") if error
