@@ -3,13 +3,14 @@ module Medic
 
     include Medic::Types
     include Medic::StatisticsOptions
+    include Medic::Interval
 
     def initialize(args={})
       type = object_type(args[:type])
       predicate = args[:predicate]
       options = options_for_stat_query(args[:options])
       anchor = args[:anchor_date] || args[:anchor] || args[:date] || NSDate.date
-      interval = args[:interval_components] || args[:interval]
+      interval = interval(args[:interval_components] || args[:interval])
       initWithQuantityType(type, quantitySamplePredicate: predicate, options: options, anchorDate: anchor, intervalComponents: interval)
     end
 

@@ -11,6 +11,7 @@ module Medic
     }
 
     def interval(sym)
+      return sym if sym.is_a? NSDateComponents
       parts = sym.to_s.gsub('_', ' ').split
       component = parts.pop.chomp('s')
       n = parts.map{|p| NUMBER_WORDS[p] || p.to_i}.reduce do |sum, p|
