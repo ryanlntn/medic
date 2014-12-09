@@ -8,9 +8,9 @@ module Medic
       type = object_type(args[:type])
       predicate = args[:predicate]
       limit = args[:limit] || HKObjectQueryNoLimit
-      sort = sort_descriptors(args[:sort_descriptors]) if args[:sort_descriptors]
-      sort ||= sort_descriptors(args[:sort_by]) if args[:sort_by]
-      sort ||= sort_descriptors(args[:sort]) if args[:sort]
+      sort = args[:sort_descriptors] || args[:sort_by] || args[:sort_asc] || args[:sort]
+      sort = sort_descriptors(sort) if sort
+      sort ||= sort_descriptors(args[:sort_desc], false) if args[:sort_desc]
 
       initWithSampleType(type, predicate: predicate, limit: limit, sortDescriptors: sort, resultsHandler: block)
     end

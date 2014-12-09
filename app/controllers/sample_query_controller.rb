@@ -8,10 +8,10 @@ class SampleQueryController < BaseController
   end
 
   def viewDidAppear(animated)
-    query = Medic::SampleQuery.new(type: :dietary_protein, limit: 7) do |query, results, error|
+    query = Medic::SampleQuery.new(type: :dietary_protein, sort_desc: :start_date, limit: 7) do |query, results, error|
       if results
         results.each do |sample|
-          NSLog sample.quantity.doubleValueForUnit(HKUnit.gramUnit).to_s
+          NSLog "#{sample.startDate} - #{sample.quantity.doubleValueForUnit(HKUnit.gramUnit)}"
         end
       else
         NSLog "no results"

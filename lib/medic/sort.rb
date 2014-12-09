@@ -6,8 +6,10 @@ module Medic
       end_date: HKSampleSortIdentifierEndDate
     }
 
-    def sort_descriptors(symbols)
-      Array(symbols).map{ |sym| sort_identifier(sym) }
+    def sort_descriptors(symbols, ascending=true)
+      Array(symbols).map do |sym|
+        NSSortDescriptor.alloc.initWithKey(sort_identifier(sym), ascending: ascending)
+      end
     end
 
     def sort_identifier(sort_id)
