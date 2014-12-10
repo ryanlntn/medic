@@ -8,7 +8,11 @@ module Medic
 
     def sort_descriptors(symbols, ascending=true)
       Array(symbols).map do |sym|
-        NSSortDescriptor.alloc.initWithKey(sort_identifier(sym), ascending: ascending)
+        if sym.is_a? NSSortDescriptor
+          sym
+        else
+          NSSortDescriptor.alloc.initWithKey(sort_identifier(sym), ascending: ascending)
+        end
       end
     end
 
