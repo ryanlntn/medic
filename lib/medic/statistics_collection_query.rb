@@ -11,7 +11,9 @@ module Medic
       options = options_for_stat_query(args[:options])
       anchor = args[:anchor_date] || args[:anchor] || args[:date] || NSDate.date
       interval = interval(args[:interval_components] || args[:interval])
-      initWithQuantityType(type, quantitySamplePredicate: predicate, options: options, anchorDate: anchor, intervalComponents: interval)
+      self.initWithQuantityType(type, quantitySamplePredicate: predicate, options: options, anchorDate: anchor, intervalComponents: interval)
+      self.initialResultsHandler = Proc.new if block_given?
+      self
     end
 
     alias_method :initial_results_handler, :initialResultsHandler

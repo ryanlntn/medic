@@ -8,12 +8,12 @@ class StatisticsCollectionQueryController < BaseController
   end
 
   def viewDidAppear(animated)
-    query = Medic::StatisticsCollectionQuery.new(type: :step_count, options: :sum, anchor: one_week_ago, interval: :day)
+    query_params = { type: :step_count, options: :sum, anchor: one_week_ago, interval: :day }
 
-    query.initial_results_handler = ->(query, results, error){
+    query = Medic::StatisticsCollectionQuery.new(query_params) do |query, results, error|
       NSLog("An error occurred calculating statistics: #{error.localizedDescription}") if error
       handle(results) if results
-    }
+    end
 
     query.statistics_update_handler = ->(query, statistics, results, error){
       NSLog("An error occurred calculating statistics: #{error.localizedDescription}") if error
