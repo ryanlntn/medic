@@ -3,7 +3,7 @@ class StatisticsCollectionQueryController < BaseController
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.blueColor
+    self.view.backgroundColor = UIColor.orangeColor
     self.title = "StatisticsCollectionQuery"
   end
 

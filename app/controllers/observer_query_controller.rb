@@ -3,7 +3,7 @@ class ObserverQueryController < BaseController
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.yellowColor
+    self.view.backgroundColor = UIColor.blueColor
     self.title = "ObserverQuery"
   end
 

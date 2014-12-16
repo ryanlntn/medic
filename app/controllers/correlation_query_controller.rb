@@ -3,7 +3,7 @@ class CorrelationQueryController < BaseController
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.yellowColor
+    self.view.backgroundColor = UIColor.greenColor
     self.title = "CorrelationQuery"
   end
 

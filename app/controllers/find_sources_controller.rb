@@ -3,7 +3,7 @@ class FindSourcesController < BaseController
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.yellowColor
+    self.view.backgroundColor = UIColor.blueColor
     self.title = "FindSources"
   end
 

@@ -3,7 +3,7 @@ class SourceQueryController < BaseController
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.yellowColor
+    self.view.backgroundColor = UIColor.redColor
     self.title = "SourceQuery"
   end
 

@@ -3,7 +3,7 @@ class SampleQueryController < BaseController
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.yellowColor
+    self.view.backgroundColor = UIColor.purpleColor
     self.title = "SampleQuery"
   end
 
