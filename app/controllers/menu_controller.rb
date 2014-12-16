@@ -18,7 +18,8 @@ class MenuController < BaseController
       'SourceQuery',
       'StatisticsCollectionQuery',
       'StatisticsQuery',
-      'ObserveFinder'
+      'Observe',
+      'FindSources'
     ]
 
     self.view.addSubview @table

@@ -1,10 +1,10 @@
-class ObserveFinderController < BaseController
+class ObserveController < BaseController
 
   def viewDidLoad
     super
 
     self.view.backgroundColor = UIColor.yellowColor
-    self.title = "ObserveFinder"
+    self.title = "Observe"
   end
 
   def viewDidAppear(animated)
