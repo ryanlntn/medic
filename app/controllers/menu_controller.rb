@@ -17,7 +17,8 @@ class MenuController < BaseController
       'SampleQuery',
       'SourceQuery',
       'StatisticsCollectionQuery',
-      'StatisticsQuery'
+      'StatisticsQuery',
+      'ObserveFinder'
     ]
 
     self.view.addSubview @table

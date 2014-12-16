@@ -1,6 +1,8 @@
 module Medic
   class << self
 
+    include Medic::Finders
+
     def available?
       Medic::Store.available?
     end
