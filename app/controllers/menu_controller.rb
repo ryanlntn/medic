@@ -19,7 +19,8 @@ class MenuController < BaseController
       'StatisticsCollectionQuery',
       'StatisticsQuery',
       'Observe',
-      'FindSources'
+      'FindSources',
+      'FindSamples'
     ]
 
     self.view.addSubview @table
