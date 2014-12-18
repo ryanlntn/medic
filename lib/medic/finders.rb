@@ -50,6 +50,18 @@ module Medic
       Medic.execute(query)
     end
 
+    def find_statistics_collection(type, options={}, block=Proc.new)
+      query_params = options.merge(type: type)
+      query = Medic::StatisticsCollectionQuery.new query_params do |query, collection, error|
+        formatted_stats = []
+        collection.enumerateStatisticsFromDate(collection.anchorDate, toDate: NSDate.date, withBlock: ->(result, stop){
+          formatted_stats << statistics_to_hash(result)
+        })
+        block.call(formatted_stats)
+      end
+      Medic.execute(query)
+    end
+
   private
 
     def samples_to_hashes(samples)
@@ -91,7 +103,7 @@ module Medic
       h = {}
       h[:start_date] = stats.startDate
       h[:end_date] = stats.endDate
-      h[:sources] = stats.sources.map(&:name)
+      h[:sources] = stats.sources.map(&:name) if stats.sources
       h[:quantity_type] = Medic::Types::TYPE_IDENTIFIERS.index(stats.quantityType.identifier)
       h[:canonical_unit] = stats.quantityType.canonicalUnit.unitString
       h[:data_count] = stats.dataCount
