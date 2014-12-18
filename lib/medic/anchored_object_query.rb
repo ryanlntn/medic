@@ -5,11 +5,12 @@ module Medic
     include Medic::Predicate
 
     def initialize(args={}, block=Proc.new)
-      type = object_type(args[:type])
-      predicate = predicate(args)
-      anchor = args[:anchor_date] || args[:anchor] || args[:date] || HKAnchoredObjectQueryNoAnchor
-      limit = args[:limit] || HKObjectQueryNoLimit
-      initWithType(type, predicate: predicate, anchor: anchor, limit: limit, completionHandler: block)
+      self.initWithType(object_type(args[:type]),
+        predicate: predicate(args),
+        anchor: args[:anchor_date] || args[:anchor] || args[:date] || HKAnchoredObjectQueryNoAnchor,
+        limit: args[:limit] || HKObjectQueryNoLimit,
+        completionHandler: block
+      )
     end
 
   end
