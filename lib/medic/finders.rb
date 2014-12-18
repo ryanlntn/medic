@@ -26,6 +26,14 @@ module Medic
       Medic.execute(query)
     end
 
+    def find_correlations(type, options={}, block=Proc.new)
+      query_params = options.merge(type: type)
+      query = Medic::CorrelationQuery.new query_params do |query, correlations, error|
+        block.call(samples_to_hashes(Array(correlations)))
+      end
+      Medic.execute(query)
+    end
+
   private
 
     def samples_to_hashes(samples)
