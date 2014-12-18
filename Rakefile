@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-$:.unshift("/Library/RubyMotion3.0/lib")
+$:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
 require './lib/medic'
 require 'motion-stump'

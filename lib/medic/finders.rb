@@ -39,13 +39,13 @@ module Medic
         h[:sample_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.sampleType.identifier)
 
         if sample.respond_to?(:categoryType) && sample.respond_to?(:value)
-          h[:category_type] = sample.categoryType
-          h[:value] = sample.value
+          h[:category_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.categoryType.identifier)
+          h[:value] = [:in_bed, :asleep][sample.value] # SleepAnalysis is the only category type at the moment
         end
 
         if sample.respond_to?(:correlationType) && sample.respond_to?(:objects)
-          h[:correlation_type] = sample.correlationType
-          h[:objects] = sample.objects
+          h[:correlation_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.correlationType.identifier)
+          h[:objects] = samples_to_hashes(Array(sample.objects.allObjects))
         end
 
         if sample.respond_to?(:quantity) && sample.respond_to?(:quantityType)
