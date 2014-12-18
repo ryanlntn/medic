@@ -34,6 +34,14 @@ module Medic
       Medic.execute(query)
     end
 
+    def find_anchored(type, options={}, block=Proc.new)
+      query_params = options.merge(type: type)
+      query = Medic::AnchoredObjectQuery.new query_params do |query, results, new_anchor, error|
+        block.call(samples_to_hashes(Array(results)), new_anchor)
+      end
+      Medic.execute(query)
+    end
+
   private
 
     def samples_to_hashes(samples)
