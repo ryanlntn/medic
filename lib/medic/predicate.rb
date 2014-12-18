@@ -4,19 +4,20 @@ module Medic
     include Medic::QueryOptions
 
     def predicate(args={})
+      return args if args.is_a? NSPredicate
       if args[:where]
         args[:where]
       elsif args[:predicate]
         args[:predicate]
       elsif args[:sample_predicate]
         args[:sample_predicate]
-      elsif args[:uuid]
-        uuids = Array(args[:uuid]).map{ |s| NSUUID.alloc.initWithUUIDString(s.to_s) }
+      elsif args[:uuid] || args[:uuids]
+        uuids = Array(args[:uuid] || args[:uuids]).map{ |s| NSUUID.alloc.initWithUUIDString(s.to_s) }
         HKQuery.predicateForObjectsWithUUIDs(uuids)
-      elsif args[:source]
-        HKQuery.predicateForObjectsFromSources(Array(args[:source]))
-      elsif args[:meta_data] && args[:allowed_values]
-        HKQuery.predicateForObjectsWithMetadataKey(args[:meta_data].to_s, allowedValues: Array(args[:allowed_values]))
+      elsif args[:source] || args[:sources]
+        HKQuery.predicateForObjectsFromSources(Array(args[:source] || args[:sources]))
+      elsif args[:meta_data] && (args[:allowed_value] || args[:allowed_values])
+        HKQuery.predicateForObjectsWithMetadataKey(args[:meta_data].to_s, allowedValues: Array(args[:allowed_value] || args[:allowed_values]))
       elsif args[:meta_data]
         HKQuery.predicateForObjectsWithMetadataKey(args[:meta_data].to_s)
       elsif args[:no_correlation]

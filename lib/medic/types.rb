@@ -77,6 +77,7 @@ module Medic
     }
 
     def object_type(type)
+      return type if type.is_a? HKObjectType
       case type
       when :workout
         HKObjectType.workoutType
