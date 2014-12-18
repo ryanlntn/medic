@@ -8,11 +8,11 @@ class FindSamplesController < BaseController
   end
 
   def viewDidAppear(animated)
-    # Medic.find_samples :step_count do |samples|
-    #   samples.each do |sample|
-    #     NSLog sample
-    #   end
-    # end
+    Medic.find_samples :step_count, sort: :start_date, limit: 7 do |samples|
+      samples.each do |sample|
+        NSLog sample
+      end
+    end
   end
 
 end
