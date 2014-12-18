@@ -22,7 +22,8 @@ class MenuController < BaseController
       'FindSources',
       'FindSamples',
       'FindCorrelations',
-      'FindAnchored'
+      'FindAnchored',
+      'FindStatistics'
     ]
 
     self.view.addSubview @table

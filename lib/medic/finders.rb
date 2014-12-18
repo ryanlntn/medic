@@ -42,6 +42,14 @@ module Medic
       Medic.execute(query)
     end
 
+    def find_statistics(type, options={}, block=Proc.new)
+      query_params = options.merge(type: type)
+      query = Medic::StatisticsQuery.new query_params do |query, statistics, error|
+        block.call(statistics_to_hash(statistics)) if statistics
+      end
+      Medic.execute(query)
+    end
+
   private
 
     def samples_to_hashes(samples)
@@ -77,6 +85,25 @@ module Medic
         h[:workout_events] = sample.workoutEvents  if sample.respond_to?(:workoutEvents)
         h
       end
+    end
+
+    def statistics_to_hash(stats)
+      h = {}
+      h[:start_date] = stats.startDate
+      h[:end_date] = stats.endDate
+      h[:sources] = stats.sources.map(&:name)
+      h[:quantity_type] = Medic::Types::TYPE_IDENTIFIERS.index(stats.quantityType.identifier)
+      h[:canonical_unit] = stats.quantityType.canonicalUnit.unitString
+      h[:data_count] = stats.dataCount
+      h[:average] = stats.averageQuantity.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.averageQuantity
+      h[:minimum] = stats.minimumQuantity.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.minimumQuantity
+      h[:maximum] = stats.maximumQuantity.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.maximumQuantity
+      h[:sum] = stats.sumQuantity.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.sumQuantity
+      h[:average_by_source] = stats.averageQuantityBySource.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.averageQuantityBySource
+      h[:minimum_by_source] = stats.minimumQuantityBySource.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.minimumQuantityBySource
+      h[:maximum_by_source] = stats.maximumQuantityBySource.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.maximumQuantityBySource
+      h[:sum_by_source] = stats.sumQuantityBySource.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.sumQuantityBySource
+      h
     end
 
   end
