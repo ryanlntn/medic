@@ -31,18 +31,29 @@ module Medic
     def samples_to_hashes(samples)
       samples.map do |sample|
         h = {}
-        h[:uuid] = sample.UUID
+        h[:uuid] = sample.UUID.UUIDString
         h[:metadata] = sample.metadata
         h[:source] = sample.source.name
         h[:start_date] = sample.startDate
         h[:end_date] = sample.endDate
-        h[:sample_type] = sample.sampleType
-        h[:category_type] = sample.categoryType if sample.respond_to?(:categoryType)
-        h[:value] = sample.value if sample.respond_to?(:value)
-        h[:correlation_type] = sample.correlationType if sample.respond_to?(:correlationType)
-        h[:objects] = sample.objects if sample.respond_to?(:objects)
-        h[:quantity] = sample.quantity if sample.respond_to?(:quantity)
-        h[:quantity_type] = sample.quantityType if sample.respond_to?(:quantityType)
+        h[:sample_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.sampleType.identifier)
+
+        if sample.respond_to?(:categoryType) && sample.respond_to?(:value)
+          h[:category_type] = sample.categoryType
+          h[:value] = sample.value
+        end
+
+        if sample.respond_to?(:correlationType) && sample.respond_to?(:objects)
+          h[:correlation_type] = sample.correlationType
+          h[:objects] = sample.objects
+        end
+
+        if sample.respond_to?(:quantity) && sample.respond_to?(:quantityType)
+          h[:quantity] = sample.quantity.doubleValueForUnit(sample.quantityType.canonicalUnit)
+          h[:quantity_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.quantityType.identifier)
+          h[:canonical_unit] = sample.quantityType.canonicalUnit.unitString
+        end
+
         h[:duration] = sample.duration if sample.respond_to?(:duration)
         h[:total_distance] = sample.totalDistance if sample.respond_to?(:totalDistance)
         h[:total_energy_burned] = sample.totalEnergyBurned if sample.respond_to?(:totalEnergyBurned)
