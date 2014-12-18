@@ -1,8 +1,7 @@
 class AppDelegate
-  attr_reader :window, :health_store
+  attr_reader :window
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    @health_store = Medic::Store.new
     controller = MenuController.new
 
     @window ||= UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
