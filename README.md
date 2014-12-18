@@ -83,9 +83,7 @@ query.initialResultsHandler = ->(query, results, error){
 This doesn't make for the most readable code. As a Ruby developer you might find this downright distasteful. Let's check out the Medic equivalent:
 
 ```ruby
-one_week_ago = NSCalendar.currentCalendar.dateByAddingComponents(NSDateComponents.new.setDay(-7), toDate: today, options: 0)
-
-options = { options: :sum, anchor: one_week_ago, interval: :day}
+options = { options: :sum, anchor: :one_week_ago, interval: :day}
 
 Medic.find_statistics_collection :step_count, options do |statistics|
   statistics.each do |stats|
@@ -185,9 +183,7 @@ end
 Perform multiple statistics queries over a series of fixed-length time intervals.
 
 ```ruby
-one_week_ago = NSCalendar.currentCalendar.dateByAddingComponents(NSDateComponents.new.setDay(-7), toDate: today, options: 0)
-
-options = { options: :sum, anchor: one_week_ago, interval: :day}
+options = { options: :sum, anchor: :one_week_ago, interval: :day}
 
 Medic.find_statistics_collection :step_count, options do |statistics|
   statistics.each do |stats|
