@@ -3,6 +3,7 @@ $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
 require './lib/medic'
 require 'motion-stump'
+require 'motion-redgreen'
 
 begin
   require 'bundler'
@@ -20,6 +21,8 @@ Motion::Project::App.setup do |app|
   app.entitlements['com.apple.developer.healthkit'] = true
 
   app.frameworks += ['HealthKit']
+
+  app.redgreen_style = :progress
 
   app.development do
     app.codesign_certificate = 'iPhone Developer: Ryan Linton (GZY2Z654JA)'
