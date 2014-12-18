@@ -71,8 +71,6 @@ query.initialResultsHandler = ->(query, results, error){
   results.enumerateStatisticsFromDate(one_week_ago, toDate: today, withBlock: ->(result, stop){
     if quantity = result.sumQuantity
       NSLog quantity.doubleValueForUnit(HKUnit.countUnit).to_s
-    else
-      NSLog "no quantity"
     end
   })
 }
@@ -200,6 +198,26 @@ Characteristic data like biological sex or blood type have their own methods:
 Medic.biological_sex # => :male
 Medic.date_of_birth  # => 1987-11-07 00:00:00 -0800
 Medic.blood_type     # => :o_negative
+```
+
+#### Queries
+
+If for some reason you need to access the `HKSample` objects directly you can use Medic's Query objects:
+
+```ruby
+query_params = { type: :dietary_protein, sort_desc: :start_date, limit: 7 }
+
+query = Medic::SampleQuery.new query_params do |query, results, error|
+  if results
+    results.each do |sample|
+      NSLog "#{sample.startDate} - #{sample.quantity.doubleValueForUnit(HKUnit.gramUnit)}"
+    end
+  else
+    NSLog "no results"
+  end
+end
+
+Medic.execute(query)
 ```
 
 ## Contributing
