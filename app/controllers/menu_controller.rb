@@ -11,18 +11,18 @@ class MenuController < BaseController
     @data = [
       'Authorize',
       'Characteristics',
+      'ObserverQuery',
+      'SourceQuery',
+      'SampleQuery',
       'AnchoredObjectQuery',
       'CorrelationQuery',
-      'ObserverQuery',
-      'SampleQuery',
-      'SourceQuery',
-      'StatisticsCollectionQuery',
       'StatisticsQuery',
+      'StatisticsCollectionQuery',
       'Observe',
       'FindSources',
       'FindSamples',
-      'FindCorrelations',
       'FindAnchored',
+      'FindCorrelations',
       'FindStatistics',
       'FindStatisticsCollection'
     ]
