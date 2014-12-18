@@ -2,11 +2,13 @@ module Medic
   class ObserverQuery < HKObserverQuery
 
     include Medic::Types
+    include Medic::Predicate
 
     def initialize(args={}, block=Proc.new)
-      type = object_type(args[:type])
-      predicate = args[:predicate]
-      initWithSampleType(type, predicate: predicate, updateHandler: block)
+      self.initWithSampleType(object_type(args[:type]),
+        predicate: predicate(args),
+        updateHandler: block
+      )
     end
 
   end

@@ -4,15 +4,17 @@ module Medic
     include Medic::QueryOptions
 
     def predicate(args={})
-      if args[:predicate]
-        args[:predicate]
-      elsif args[:where]
+      if args[:where]
         args[:where]
+      elsif args[:predicate]
+        args[:predicate]
+      elsif args[:sample_predicate]
+        args[:sample_predicate]
       elsif args[:uuid]
         uuids = Array(args[:uuid]).map{ |s| NSUUID.alloc.initWithUUIDString(s.to_s) }
         HKQuery.predicateForObjectsWithUUIDs(uuids)
       elsif args[:source]
-        HKQuery.predicateForObjectsWithSources(Array(args[:source]))
+        HKQuery.predicateForObjectsFromSources(Array(args[:source]))
       elsif args[:meta_data] && args[:allowed_values]
         HKQuery.predicateForObjectsWithMetadataKey(args[:meta_data].to_s, allowedValues: Array(args[:allowed_values]))
       elsif args[:meta_data]

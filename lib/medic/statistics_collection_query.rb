@@ -2,16 +2,17 @@ module Medic
   class StatisticsCollectionQuery < HKStatisticsCollectionQuery
 
     include Medic::Types
+    include Medic::Predicate
     include Medic::StatisticsOptions
     include Medic::Interval
 
     def initialize(args={})
-      type = object_type(args[:type])
-      predicate = args[:predicate]
-      options = options_for_stat_query(args[:options])
-      anchor = args[:anchor_date] || args[:anchor] || args[:date] || NSDate.date
-      interval = interval(args[:interval_components] || args[:interval])
-      self.initWithQuantityType(type, quantitySamplePredicate: predicate, options: options, anchorDate: anchor, intervalComponents: interval)
+      self.initWithQuantityType(object_type(args[:type]),
+        quantitySamplePredicate: predicate(args),
+        options: options_for_stat_query(args[:options]),
+        anchorDate: args[:anchor_date] || args[:anchor] || args[:date] || NSDate.date,
+        intervalComponents: interval(args[:interval_components] || args[:interval])
+      )
       self.initialResultsHandler = Proc.new if block_given?
       self
     end

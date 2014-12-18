@@ -2,11 +2,13 @@ module Medic
   class SourceQuery < HKSourceQuery
 
     include Medic::Types
+    include Medic::Predicate
 
     def initialize(args={}, block=Proc.new)
-      type = object_type(args[:type])
-      predicate = args[:sample_predicate] || args[:predicate]
-      initWithSampleType(type, samplePredicate: predicate, completionHandler: block)
+      self.initWithSampleType(object_type(args[:type]),
+        samplePredicate: predicate(args),
+        completionHandler: block
+      )
     end
 
   end
