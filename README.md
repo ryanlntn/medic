@@ -1,4 +1,4 @@
-# Medic [![Gem Version](https://badge.fury.io/rb/medic.svg)](http://badge.fury.io/rb/medic) [![Code Climate](https://codeclimate.com/github/ryanlntn/medic/badges/gpa.svg)](https://codeclimate.com/github/ryanlntn/medic) [![Dependency Status](https://gemnasium.com/ryanlntn/medic.svg)](https://gemnasium.com/ryanlntn/medic)
+# Medic [![Gem Version](https://badge.fury.io/rb/medic.svg)](http://badge.fury.io/rb/medic) [![Build Status](https://travis-ci.org/ryanlntn/medic.svg)](https://travis-ci.org/ryanlntn/medic) [![Code Climate](https://codeclimate.com/github/ryanlntn/medic/badges/gpa.svg)](https://codeclimate.com/github/ryanlntn/medic) [![Dependency Status](https://gemnasium.com/ryanlntn/medic.svg)](https://gemnasium.com/ryanlntn/medic)
 
 Is HealthKit's verbose and convoluted API driving you to autolobotomization? Quick! You need a medic!
 
