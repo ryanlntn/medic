@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["ryanl@clearsightstudio.com"]
   spec.description   = %q{RubyMotion Wrapper for HealthKit}
   spec.summary       = %q{A RubyMotion Wrapper for HealthKit}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/ryanlntn/medic"
   spec.license       = "MIT"
 
   spec.files         = Dir.glob("lib/**/*.rb")
@@ -17,6 +17,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir.glob("spec/**/*.rb")
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "motion-stump"
+  spec.add_development_dependency "rake", "~> 10"
+  spec.add_development_dependency "motion-stump", "~> 0.3"
 end
