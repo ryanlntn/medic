@@ -1,14 +1,12 @@
 language: objective-c
-rvm:
-- 2.1.5
 before_install:
 - (ruby --version)
 - sudo chown -R travis ~/Library/RubyMotion
 - mkdir -p ~/Library/RubyMotion/build
-- sudo motion update --cache-version=3.1
+- sudo motion update --cache-version=2.38
 gemfile:
 - Gemfile
 script:
+- bundle exec rake clean:all
 - bundle install
-- bundle exec rake clean
 - bundle exec rake spec
