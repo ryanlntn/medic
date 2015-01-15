@@ -53,8 +53,10 @@ module Medic
     def find_statistics_collection(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
       query = Medic::StatisticsCollectionQuery.new query_params do |query, collection, error|
+        from_date = options[:from_date] || options[:from] || collection.anchorDate
+        to_date = options[:to_date] || options[:to] || NSDate.date
         formatted_stats = []
-        collection.enumerateStatisticsFromDate(collection.anchorDate, toDate: NSDate.date, withBlock: ->(result, stop){
+        collection.enumerateStatisticsFromDate(from_date, toDate: to_date, withBlock: ->(result, stop){
           formatted_stats << statistics_to_hash(result)
         })
         block.call(formatted_stats)
