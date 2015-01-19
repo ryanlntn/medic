@@ -15,6 +15,8 @@ module Medic
         intervalComponents: interval(args[:interval_components] || args[:interval])
       )
       self.initialResultsHandler = Proc.new if block_given?
+      # self.statisticsUpdateHandler = Proc.new if block_given? && args[:update] == true
+      # self.statisticsUpdateHandler = args[:update] if args[:update].is_a?(Proc)
       self
     end
 

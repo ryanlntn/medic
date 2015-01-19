@@ -23,7 +23,7 @@ module Medic
       elsif args[:no_correlation]
         HKQuery.predicateForObjectsWithNoCorrelation
       elsif args[:start_date] && args[:end_date]
-        options = query_options(args[:options]) || HKQueryOptionNone
+        options = query_options(args[:query_options]) || HKQueryOptionNone
         HKQuery.predicateForSamplesWithStartDate(args[:start_date], endDate: args[:end_date], options: options)
       elsif args[:workout]
         HKQuery.predicateForObjectsFromWorkout(args[:workout])

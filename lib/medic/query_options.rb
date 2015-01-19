@@ -10,7 +10,7 @@ module Medic
     def query_options(symbols)
       options = 0
       Array(symbols).each do |option|
-        options = options | query_option(option)
+        options |= query_option(option)
       end
       options
     end
