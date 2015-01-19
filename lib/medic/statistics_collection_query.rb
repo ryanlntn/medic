@@ -14,9 +14,12 @@ module Medic
         anchorDate: anchor_for_symbol(args[:anchor_date] || args[:anchor] || args[:date] || NSDate.date),
         intervalComponents: interval(args[:interval_components] || args[:interval])
       )
-      self.initialResultsHandler = Proc.new if block_given?
-      # self.statisticsUpdateHandler = Proc.new if block_given? && args[:update] == true
-      # self.statisticsUpdateHandler = args[:update] if args[:update].is_a?(Proc)
+      if block_given?
+        handler = Proc.new
+        self.initialResultsHandler = handler
+        self.statisticsUpdateHandler = Proc.new{|q,_,r,e| handler.call(q,r,e)} if args[:update] == true
+      end
+      self.statisticsUpdateHandler = args[:update] if args[:update].is_a?(Proc)
       self
     end
 
