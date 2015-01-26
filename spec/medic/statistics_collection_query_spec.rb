@@ -3,12 +3,12 @@ describe "Medic::StatisticsCollectionQuery" do
   before do
     query_params = { type: :step_count, options: :sum, interval: :day }
     @subject = Medic::StatisticsCollectionQuery.new query_params do |query, collection, error|
-      @block_contents = :called_back
+      @block_contents = [query, collection, error]
     end
 
     query_params2 = { type: :step_count, options: :sum, interval: :day, update: true }
     @subject_with_update = Medic::StatisticsCollectionQuery.new query_params2 do |query, collection, error|
-      @block_contents = :called_back
+      @block_contents = [query, collection, error]
     end
   end
 
@@ -23,13 +23,13 @@ describe "Medic::StatisticsCollectionQuery" do
   describe "initialize" do
     it "sets initialResultsHandler when given block" do
       @subject.initialResultsHandler.call(:query, :collection, :error)
-      @block_contents.should == :called_back
+      @block_contents.should == [:query, :collection, :error]
     end
 
     context "when :update is given" do
       it "sets statisticsUpdateHandler when given block" do
         @subject_with_update.statisticsUpdateHandler.call(:query, :statistics, :collection, :error)
-        @block_contents.should == :called_back
+        @block_contents.should == [:query, :collection, :error]
       end
     end
 
