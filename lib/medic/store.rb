@@ -118,22 +118,13 @@ module Medic
   private
 
     def prepare_for_save(sample)
-      NSLog sample.to_s
-      NSLog "Preparing to save..."
       return sample if sample.kind_of? HKSample
-      NSLog "Determined that sample needs prep..."
 
       date = sample[:date] || NSDate.date
-      NSLog "Set start and end date1..."
       start_date = sample[:start] || sample[:start_date] || date
-      NSLog "Set start and end date2..."
       end_date = sample[:end] || sample[:end_date] || date
-      NSLog "Set start and end date3..."
 
       type = object_type(sample[:quantity_type] || sample[:correlation_type] || sample[:category_type] || sample[:sample_type])
-      NSLog "Set sample type..."
-
-      NSLog "Made it this far!"
 
       case type
       when HKQuantityType
