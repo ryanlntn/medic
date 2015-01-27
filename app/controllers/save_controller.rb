@@ -8,22 +8,10 @@ class SaveController < BaseController
   end
 
   def viewDidAppear(animated)
-    NSLog HKUnit.public_methods(false).to_s
-
-    heightQuantity = HKQuantity.quantityWithUnit(HKUnit.inchUnit, doubleValue: 77.0)
-    heightType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeight)
-    now = NSDate.date
-
-    heightSample = HKQuantitySample.quantitySampleWithType(
-      heightType,
-      quantity: heightQuantity,
-      startDate: now,
-      endDate: now
-    )
-
-    # Medic.save heightSample do |success, error|
-    #   NSLog "Saved sample" unless error
-    # end
+    height = { quantity_type: :height, quantity: 77, unit: "inch" }
+    Medic.save(height) do |success, error|
+      NSLog "Saved sample" unless error
+    end
   end
 
 end

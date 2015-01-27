@@ -2,6 +2,7 @@ module Medic
   class Store < HKHealthStore
 
     include Medic::Types
+    include Medic::Units
     include Medic::HKConstants
 
     def self.shared
@@ -72,7 +73,8 @@ module Medic
     alias_method :delete_object, :delete
 
     def save(hk_objects, block=Proc.new)
-      saveObjects(Array(hk_objects), withCompletion: ->(success, error){
+      objs_array = hk_objects.is_a?(Array) ? hk_objects : [hk_objects]
+      saveObjects(objs_array.map{|obj| prepare_for_save(obj)}, withCompletion: ->(success, error){
         block.call(success, error)
       })
     end
@@ -111,6 +113,44 @@ module Medic
       disableAllBackgroundDeliveryWithCompletion(->(success, error){
         block.call(success, error)
       })
+    end
+
+  private
+
+    def prepare_for_save(sample)
+      NSLog sample.to_s
+      NSLog "Preparing to save..."
+      return sample if sample.kind_of? HKSample
+      NSLog "Determined that sample needs prep..."
+
+      date = sample[:date] || NSDate.date
+      NSLog "Set start and end date1..."
+      start_date = sample[:start] || sample[:start_date] || date
+      NSLog "Set start and end date2..."
+      end_date = sample[:end] || sample[:end_date] || date
+      NSLog "Set start and end date3..."
+
+      type = object_type(sample[:quantity_type] || sample[:correlation_type] || sample[:category_type] || sample[:sample_type])
+      NSLog "Set sample type..."
+
+      NSLog "Made it this far!"
+
+      case type
+      when HKQuantityType
+        quantity = HKQuantity.quantityWithUnit((sample_unit(sample[:unit]) || type.canonicalUnit), doubleValue: sample[:quantity])
+        return HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date) unless sample[:metadata]
+        HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date, metadata: sample[:metadata])
+      when HKCorrelationType
+        objects = Array(sample[:objects]).map{|obj| prepare_for_save(obj)}
+        return HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects) unless sample[:metadata]
+        HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects, metadata: sample[:metadata])
+      when HKCategoryType
+        value = sleep_analysis(sample[:value]) # SleepAnalysis is the only category type at the moment
+        return HKCategorySample.categorySampleWithType(type, value: value, startDate: start_date, endDate: end_date) unless sample[:metadata]
+        HKCategorySample.categorySampleWithType(type, value: value, startDate: start_date, endDate: end_date, metadata: sample[:metadata])
+      else
+        # handle workouts
+      end
     end
 
   end
