@@ -71,10 +71,10 @@ describe "Medic::Store" do
   describe "#save" do
     it "calls #saveObject:withCompletion with correct args" do
       @subject.mock! 'saveObjects:withCompletion' do |object, comp|
-        object.first.should.be.kind_of? HKObjectType
+        object.first.should.be.kind_of? HKSample
         comp.should.respond_to? :call
       end
-      steps = @subject.object_type(:step_count)
+      steps = { quantity_type: :step_count, quantity: 50 }
       @subject.save(steps){|success, error|}
     end
   end
