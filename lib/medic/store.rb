@@ -123,22 +123,20 @@ module Medic
       date = sample[:date] || NSDate.date
       start_date = sample[:start] || sample[:start_date] || date
       end_date = sample[:end] || sample[:end_date] || date
+      metadata = sample[:metadata] || {}
 
       type = object_type(sample[:quantity_type] || sample[:correlation_type] || sample[:category_type] || sample[:sample_type])
 
       case type
       when HKQuantityType
         quantity = HKQuantity.quantityWithUnit((sample_unit(sample[:unit]) || type.canonicalUnit), doubleValue: sample[:quantity])
-        return HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date) unless sample[:metadata]
-        HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date, metadata: sample[:metadata])
+        HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date, metadata: metadata)
       when HKCorrelationType
         objects = (sample[:objects].is_a?(Array) ? sample[:objects] : [sample[:objects]]).map{|obj| prepare_for_save(obj)}
-        return HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects) unless sample[:metadata]
-        HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects, metadata: sample[:metadata])
+        HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects, metadata: metadata)
       when HKCategoryType
         value = sleep_analysis(sample[:value]) # SleepAnalysis is the only category type at the moment
-        return HKCategorySample.categorySampleWithType(type, value: value, startDate: start_date, endDate: end_date) unless sample[:metadata]
-        HKCategorySample.categorySampleWithType(type, value: value, startDate: start_date, endDate: end_date, metadata: sample[:metadata])
+        HKCategorySample.categorySampleWithType(type, value: value, startDate: start_date, endDate: end_date, metadata: metadata)
       else
         # handle workouts
       end
