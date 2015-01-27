@@ -125,7 +125,7 @@ module Medic
       end_date = sample[:end] || sample[:end_date] || date
       metadata = sample[:metadata] || {}
 
-      type = object_type(sample[:quantity_type] || sample[:correlation_type] || sample[:category_type] || sample[:sample_type])
+      type = object_type(sample[:type] || sample[:sample_type] || sample[:quantity_type] || sample[:correlation_type] || sample[:category_type])
 
       case type
       when HKQuantityType
