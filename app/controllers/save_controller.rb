@@ -8,8 +8,20 @@ class SaveController < BaseController
   end
 
   def viewDidAppear(animated)
-    height = { quantity_type: :height, quantity: 77, unit: "inch" }
-    Medic.save(height) do |success, error|
+    blood_pressure = {
+      correlation_type: :blood_pressure,
+      objects: [
+        {
+          quantity_type: :blood_pressure_systolic,
+          quantity: 120
+        },
+        {
+          quantity_type: :blood_pressure_diastolic,
+          quantity: 80
+        }
+      ]
+    }
+    Medic.save(blood_pressure) do |success, error|
       NSLog "Saved sample" unless error
     end
   end
