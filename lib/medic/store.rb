@@ -132,7 +132,7 @@ module Medic
         return HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date) unless sample[:metadata]
         HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date, metadata: sample[:metadata])
       when HKCorrelationType
-        objects = Array(sample[:objects]).map{|obj| prepare_for_save(obj)}
+        objects = (sample[:objects].is_a?(Array) ? sample[:objects] : [sample[:objects]]).map{|obj| prepare_for_save(obj)}
         return HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects) unless sample[:metadata]
         HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects, metadata: sample[:metadata])
       when HKCategoryType
