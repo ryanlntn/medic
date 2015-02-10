@@ -53,6 +53,7 @@ module Medic
     def find_statistics_collection(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
       query = Medic::StatisticsCollectionQuery.new query_params do |query, collection, error|
+        break {} unless collection
         from_date = options[:from_date] || options[:from] || options[:start_date] || collection.anchorDate
         to_date = options[:to_date] || options[:to] || options[:end_date] || NSDate.date
         formatted_stats = []
