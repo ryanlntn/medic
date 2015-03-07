@@ -2,6 +2,7 @@ module Medic
   class Store < HKHealthStore
 
     include Medic::Types
+    include Medic::Units
     include Medic::HKConstants
 
     def self.shared
@@ -72,7 +73,8 @@ module Medic
     alias_method :delete_object, :delete
 
     def save(hk_objects, block=Proc.new)
-      saveObjects(Array(hk_objects), withCompletion: ->(success, error){
+      objs_array = hk_objects.is_a?(Array) ? hk_objects : [hk_objects]
+      saveObjects(objs_array.map{|obj| prepare_for_save(obj)}, withCompletion: ->(success, error){
         block.call(success, error)
       })
     end
@@ -111,6 +113,33 @@ module Medic
       disableAllBackgroundDeliveryWithCompletion(->(success, error){
         block.call(success, error)
       })
+    end
+
+  private
+
+    def prepare_for_save(sample)
+      return sample if sample.kind_of? HKSample
+
+      date = sample[:date] || NSDate.date
+      start_date = sample[:start] || sample[:start_date] || date
+      end_date = sample[:end] || sample[:end_date] || date
+      metadata = sample[:metadata] || {}
+
+      type = object_type(sample[:type] || sample[:sample_type] || sample[:quantity_type] || sample[:correlation_type] || sample[:category_type])
+
+      case type
+      when HKQuantityType
+        quantity = HKQuantity.quantityWithUnit((sample_unit(sample[:unit]) || type.canonicalUnit), doubleValue: sample[:quantity])
+        HKQuantitySample.quantitySampleWithType(type, quantity: quantity, startDate: start_date, endDate: end_date, metadata: metadata)
+      when HKCorrelationType
+        objects = (sample[:objects].is_a?(Array) ? sample[:objects] : [sample[:objects]]).map{|obj| prepare_for_save(obj)}
+        HKCorrelation.correlationWithType(type, startDate: start_date, endDate: end_date, objects: objects, metadata: metadata)
+      when HKCategoryType
+        value = sleep_analysis(sample[:value]) # SleepAnalysis is the only category type at the moment
+        HKCategorySample.categorySampleWithType(type, value: value, startDate: start_date, endDate: end_date, metadata: metadata)
+      else
+        # handle workouts
+      end
     end
 
   end
