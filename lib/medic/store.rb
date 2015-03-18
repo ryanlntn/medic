@@ -10,6 +10,10 @@ module Medic
       @medic_store
     end
 
+    def self.hk_store
+      @@hk_store
+    end
+
     def self.unload
       @@hk_store = nil
       @medic_store = nil
