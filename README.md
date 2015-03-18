@@ -202,12 +202,12 @@ Medic.blood_type     # => :o_negative
 
 #### Queries
 
-If for some reason you need to access the `HKSample` objects directly you can use Medic's Query objects:
+If for some reason you need to access the `HKSample` objects directly you can use Medic's QueryBuilder objects:
 
 ```ruby
 query_params = { type: :dietary_protein, sort_desc: :start_date, limit: 7 }
 
-query = Medic::SampleQuery.new query_params do |query, results, error|
+query = Medic::SampleQueryBuilder.new query_params do |query, results, error|
   if results
     results.each do |sample|
       NSLog "#{sample.startDate} - #{sample.quantity.doubleValueForUnit(HKUnit.gramUnit)}"
@@ -215,7 +215,7 @@ query = Medic::SampleQuery.new query_params do |query, results, error|
   else
     NSLog "no results"
   end
-end
+end.query
 
 Medic.execute(query)
 ```
