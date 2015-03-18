@@ -1,4 +1,4 @@
-describe "Medic::SourceQueryBuilder" do
+describe Medic::SourceQueryBuilder do
 
   before do
     @subject = Medic::SourceQueryBuilder.new type: :dietary_protein do |query, sources, error|

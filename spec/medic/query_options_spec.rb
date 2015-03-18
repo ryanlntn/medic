@@ -1,4 +1,4 @@
-describe "Medic::QueryOptions" do
+describe Medic::QueryOptions do
 
   before do
     @subject = Object.new

@@ -1,4 +1,4 @@
-describe "Medic::StatisticsCollectionQueryBuilder" do
+describe Medic::StatisticsCollectionQueryBuilder do
 
   before do
     query_params = { type: :step_count, options: :sum, interval: :day }

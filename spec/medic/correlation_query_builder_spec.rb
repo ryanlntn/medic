@@ -1,4 +1,4 @@
-describe "Medic::CorrelationQueryBuilder" do
+describe Medic::CorrelationQueryBuilder do
 
   before do
     high_cal = HKQuantity.quantityWithUnit(HKUnit.kilocalorieUnit, doubleValue: 800.0)

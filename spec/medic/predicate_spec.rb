@@ -1,4 +1,4 @@
-describe "Medic::Predicate" do
+describe Medic::Predicate do
 
   before do
     @subject = Object.new

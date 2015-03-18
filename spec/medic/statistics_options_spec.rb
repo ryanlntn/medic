@@ -1,4 +1,4 @@
-describe "Medic::StatisticsOptions" do
+describe Medic::StatisticsOptions do
 
   before do
     @subject = Object.new

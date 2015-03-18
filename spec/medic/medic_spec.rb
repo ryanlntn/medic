@@ -1,4 +1,4 @@
-describe "Medic" do
+describe Medic do
 
   before do
     @store = Medic::Store.shared

@@ -1,4 +1,4 @@
-describe "Medic::Types" do
+describe Medic::Types do
 
   before do
     @subject = Object.new

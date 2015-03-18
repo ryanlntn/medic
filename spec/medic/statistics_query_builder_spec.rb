@@ -1,4 +1,4 @@
-describe "Medic::StatisticsQueryBuilder" do
+describe Medic::StatisticsQueryBuilder do
 
   before do
     @subject = Medic::StatisticsQueryBuilder.new type: :step_count, options: :sum do |query, results, error|

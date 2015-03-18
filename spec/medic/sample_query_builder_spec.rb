@@ -1,4 +1,4 @@
-describe "Medic::SampleQueryBuilder" do
+describe Medic::SampleQueryBuilder do
 
   before do
     @subject = Medic::SampleQueryBuilder.new type: :dietary_protein, limit: 7 do |query, results, error|

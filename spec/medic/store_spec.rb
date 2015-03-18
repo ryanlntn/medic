@@ -1,4 +1,4 @@
-describe "Medic::Store" do
+describe Medic::Store do
 
   before do
     @subject = Medic::Store.new

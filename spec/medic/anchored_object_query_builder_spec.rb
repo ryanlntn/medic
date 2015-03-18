@@ -1,4 +1,4 @@
-describe "Medic::AnchoredObjectQueryBuilder" do
+describe Medic::AnchoredObjectQueryBuilder do
 
   before do
     @subject = Medic::AnchoredObjectQueryBuilder.new type: :step_count do |query, results, new_anchor, error|

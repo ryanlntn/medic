@@ -1,4 +1,4 @@
-describe "Medic::ObserverQueryBuilder" do
+describe Medic::ObserverQueryBuilder do
 
   before do
     @subject = Medic::ObserverQueryBuilder.new type: :step_count do |query, completion, error|

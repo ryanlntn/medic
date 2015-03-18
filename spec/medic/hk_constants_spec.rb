@@ -1,4 +1,4 @@
-describe "Medic::HKConstants" do
+describe Medic::HKConstants do
 
   before do
     @subject = Object.new

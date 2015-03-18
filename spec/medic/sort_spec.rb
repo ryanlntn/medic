@@ -1,4 +1,4 @@
-describe "Medic::Sort" do
+describe Medic::Sort do
 
   before do
     @subject = Object.new
