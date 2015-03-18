@@ -1,4 +1,4 @@
-describe "Medic::Interval" do
+describe Medic::Interval do
 
   before do
     @subject = Object.new

@@ -1,12 +1,13 @@
-describe "Medic::Store" do
+describe Medic::Store do
 
   before do
     @subject = Medic::Store.new
+    @hk_store = Medic::Store.hk_store
   end
 
   describe "#authorize" do
     it "calls #requestAuthorizationToShareTypes:readTypes:completion with correct args" do
-      @subject.mock! 'requestAuthorizationToShareTypes:readTypes:completion' do |share, read, comp|
+      @hk_store.mock! 'requestAuthorizationToShareTypes:readTypes:completion' do |share, read, comp|
         share.should.be.kind_of? NSSet
         read.should.be.kind_of? NSSet
         comp.should.respond_to? :call
@@ -18,7 +19,7 @@ describe "Medic::Store" do
 
   describe "#authorized?" do
     it "calls #authorizationStatusForType with correct args" do
-      @subject.mock! 'authorizationStatusForType' do |type|
+      @hk_store.mock! 'authorizationStatusForType' do |type|
         type.should.be.kind_of? HKObjectType
         false
       end
@@ -40,7 +41,7 @@ describe "Medic::Store" do
 
   describe "#biological_sex" do
     it "calls #biologicalSexWithError with correct args" do
-      @subject.mock! 'biologicalSexWithError' do |error|
+      @hk_store.mock! 'biologicalSexWithError' do |error|
         error.should.be.kind_of? Pointer
         mock(:biologicalSex, return: HKBiologicalSexFemale)
       end
@@ -50,7 +51,7 @@ describe "Medic::Store" do
 
   describe "#blood_type" do
     it "calls #bloodTypeWithError with correct args" do
-      @subject.mock! 'bloodTypeWithError' do |error|
+      @hk_store.mock! 'bloodTypeWithError' do |error|
         error.should.be.kind_of? Pointer
         mock(:bloodType, return: HKBloodTypeONegative)
       end
@@ -60,7 +61,7 @@ describe "Medic::Store" do
 
   describe "#date_of_birth" do
     it "calls #dateOfBirthWithError with correct args" do
-      @subject.mock! 'dateOfBirthWithError' do |error|
+      @hk_store.mock! 'dateOfBirthWithError' do |error|
         error.should.be.kind_of? Pointer
         true
       end
@@ -70,7 +71,7 @@ describe "Medic::Store" do
 
   describe "#save" do
     it "calls #saveObject:withCompletion with correct args" do
-      @subject.mock! 'saveObjects:withCompletion' do |object, comp|
+      @hk_store.mock! 'saveObjects:withCompletion' do |object, comp|
         object.first.should.be.kind_of? HKSample
         comp.should.respond_to? :call
       end
@@ -81,7 +82,7 @@ describe "Medic::Store" do
 
   describe "#delete" do
     it "calls #deleteObject:withCompletion with correct args" do
-      @subject.mock! 'deleteObject:withCompletion' do |object, comp|
+      @hk_store.mock! 'deleteObject:withCompletion' do |object, comp|
         object.should.be.kind_of? HKObjectType
         comp.should.respond_to? :call
       end
@@ -92,7 +93,7 @@ describe "Medic::Store" do
 
   describe "#execute" do
     it "calls #executeQuery with correct args" do
-      @subject.mock! 'executeQuery' do |query|
+      @hk_store.mock! 'executeQuery' do |query|
         query.should.be.kind_of? HKQuery
       end
       query = HKSampleQuery.alloc.initWithSampleType(@subject.object_type(:step_count), predicate:nil, limit:HKObjectQueryNoLimit, sortDescriptors:nil, resultsHandler:->(q,r,e){})
@@ -106,7 +107,7 @@ describe "Medic::Store" do
 
   describe "#stop" do
     it "calls #stopQuery with correct args" do
-      @subject.mock! 'stopQuery' do |query|
+      @hk_store.mock! 'stopQuery' do |query|
         query.should.be.kind_of? HKQuery
       end
       query = HKSampleQuery.alloc.initWithSampleType(@subject.object_type(:step_count), predicate:nil, limit:HKObjectQueryNoLimit, sortDescriptors:nil, resultsHandler:->(q,r,e){})
@@ -120,7 +121,7 @@ describe "Medic::Store" do
 
   describe "#enable_background_delivery" do
     it "calls #enableBackgroundDeliveryForType with correct args" do
-      @subject.mock! 'enableBackgroundDeliveryForType:frequency:withCompletion' do |type, freq, comp|
+      @hk_store.mock! 'enableBackgroundDeliveryForType:frequency:withCompletion' do |type, freq, comp|
         type.should.be.kind_of? HKObjectType
         freq.should == HKUpdateFrequencyWeekly
         comp.should.respond_to? :call
@@ -135,7 +136,7 @@ describe "Medic::Store" do
 
   describe "#disable_background_delivery" do
     it "calls #disableBackgroundDeliveryForType:withCompletion with correct args" do
-      @subject.mock! 'disableBackgroundDeliveryForType:withCompletion' do |type, comp|
+      @hk_store.mock! 'disableBackgroundDeliveryForType:withCompletion' do |type, comp|
         type.should.be.kind_of? HKObjectType
         comp.should.respond_to? :call
       end
@@ -149,7 +150,7 @@ describe "Medic::Store" do
 
   describe "#disable_all_background_delivery" do
     it "calls #disableAllBackgroundDeliveryWithCompletion with correct args" do
-      @subject.mock! 'disableAllBackgroundDeliveryWithCompletion' do |comp|
+      @hk_store.mock! 'disableAllBackgroundDeliveryWithCompletion' do |comp|
         comp.should.respond_to? :call
       end
       @subject.disable_all_background_delivery{|success, error|}

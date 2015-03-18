@@ -1,4 +1,4 @@
-describe "Medic::Anchor" do
+describe Medic::Anchor do
 
   before do
     @subject = Object.new

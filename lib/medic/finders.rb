@@ -3,56 +3,56 @@ module Medic
 
     def observe(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
-      query = Medic::ObserverQuery.new query_params do |query, completion, error|
+      query = Medic::ObserverQueryBuilder.new query_params do |query, completion, error|
         block.call(completion, error)
-      end
+      end.query
       Medic.execute(query)
     end
 
     def find_sources(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
-      query = Medic::SourceQuery.new query_params do |query, results, error|
+      query = Medic::SourceQueryBuilder.new query_params do |query, results, error|
         sources = results ? results.allObjects.map{ |source| source.name.to_s } : []
         block.call(sources)
-      end
+      end.query
       Medic.execute(query)
     end
 
     def find_samples(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
-      query = Medic::SampleQuery.new query_params do |query, results, error|
+      query = Medic::SampleQueryBuilder.new query_params do |query, results, error|
         block.call(samples_to_hashes(Array(results)))
-      end
+      end.query
       Medic.execute(query)
     end
 
     def find_correlations(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
-      query = Medic::CorrelationQuery.new query_params do |query, correlations, error|
+      query = Medic::CorrelationQueryBuilder.new query_params do |query, correlations, error|
         block.call(samples_to_hashes(Array(correlations)))
-      end
+      end.query
       Medic.execute(query)
     end
 
     def find_anchored(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
-      query = Medic::AnchoredObjectQuery.new query_params do |query, results, new_anchor, error|
+      query = Medic::AnchoredObjectQueryBuilder.new query_params do |query, results, new_anchor, error|
         block.call(samples_to_hashes(Array(results)), new_anchor)
-      end
+      end.query
       Medic.execute(query)
     end
 
     def find_statistics(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
-      query = Medic::StatisticsQuery.new query_params do |query, statistics, error|
+      query = Medic::StatisticsQueryBuilder.new query_params do |query, statistics, error|
         block.call(statistics_to_hash(statistics)) if statistics
-      end
+      end.query
       Medic.execute(query)
     end
 
     def find_statistics_collection(type, options={}, block=Proc.new)
       query_params = options.merge(type: type)
-      query = Medic::StatisticsCollectionQuery.new query_params do |query, collection, error|
+      query = Medic::StatisticsCollectionQueryBuilder.new query_params do |query, collection, error|
         from_date = options[:from_date] || options[:from] || options[:start_date] || collection.anchorDate
         to_date = options[:to_date] || options[:to] || options[:end_date] || NSDate.date
         formatted_stats = []
@@ -62,7 +62,8 @@ module Medic
           })
         end
         block.call(formatted_stats)
-      end
+      end.query
+
       Medic.execute(query)
     end
 
