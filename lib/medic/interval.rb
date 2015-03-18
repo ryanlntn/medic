@@ -22,6 +22,7 @@ module Medic
         end
       end
       n ||= 1
+
       NSDateComponents.new.send("#{component}=", n)
     end
 
