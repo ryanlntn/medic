@@ -13,6 +13,7 @@ module Medic
     def anchor_for_symbol(sym)
       return unless sym
       return sym if sym.to_s == '0'
+      return sym if sym.is_a? Fixnum
       return sym if sym.is_a? NSDate
       parts = sym.to_s.gsub('_', ' ').split.reject{ |part| part == 'ago' }
       component = parts.pop.chomp('s')
