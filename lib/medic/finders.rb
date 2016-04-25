@@ -77,21 +77,21 @@ module Medic
         h[:source] = sample.source.name
         h[:start_date] = sample.startDate
         h[:end_date] = sample.endDate
-        h[:sample_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.sampleType.identifier)
+        h[:sample_type] = Medic::Types::TYPE_IDENTIFIERS.key(sample.sampleType.identifier)
 
         if sample.respond_to?(:categoryType) && sample.respond_to?(:value)
-          h[:category_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.categoryType.identifier)
+          h[:category_type] = Medic::Types::TYPE_IDENTIFIERS.key(sample.categoryType.identifier)
           h[:value] = [:in_bed, :asleep][sample.value] # SleepAnalysis is the only category type at the moment
         end
 
         if sample.respond_to?(:correlationType) && sample.respond_to?(:objects)
-          h[:correlation_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.correlationType.identifier)
+          h[:correlation_type] = Medic::Types::TYPE_IDENTIFIERS.key(sample.correlationType.identifier)
           h[:objects] = samples_to_hashes(Array(sample.objects.allObjects))
         end
 
         if sample.respond_to?(:quantity) && sample.respond_to?(:quantityType)
           h[:quantity] = sample.quantity.doubleValueForUnit(sample.quantityType.canonicalUnit)
-          h[:quantity_type] = Medic::Types::TYPE_IDENTIFIERS.index(sample.quantityType.identifier)
+          h[:quantity_type] = Medic::Types::TYPE_IDENTIFIERS.key(sample.quantityType.identifier)
           h[:canonical_unit] = sample.quantityType.canonicalUnit.unitString
         end
 
@@ -109,7 +109,7 @@ module Medic
       h[:start_date] = stats.startDate
       h[:end_date] = stats.endDate
       h[:sources] = stats.sources.map(&:name) if stats.sources
-      h[:quantity_type] = Medic::Types::TYPE_IDENTIFIERS.index(stats.quantityType.identifier)
+      h[:quantity_type] = Medic::Types::TYPE_IDENTIFIERS.key(stats.quantityType.identifier)
       h[:canonical_unit] = stats.quantityType.canonicalUnit.unitString
       h[:data_count] = stats.dataCount
       h[:average] = stats.averageQuantity.doubleValueForUnit(stats.quantityType.canonicalUnit) if stats.averageQuantity
